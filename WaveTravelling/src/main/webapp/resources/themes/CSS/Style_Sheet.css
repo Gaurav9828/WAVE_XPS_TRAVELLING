@@ -1,0 +1,59 @@
+@charset "ISO-8859-1";
+body{
+	background-image: url('../../Images/Login_Form_Bg.jpg');
+}
+
+.adminLoginTable {
+    border-radius: 25px;
+    background-color: rgba(1,1,1,0.7);
+    padding: 25px; 
+    width: 25%;
+    height: 200px; 
+}
+.captcha{
+	display: inline-block;
+	border-radius: 0px;
+	background-image: url('../../Images/captcha-background.jpeg');
+	border: none;
+	color: white;
+	text-align: center;
+	font-size: 30px;
+	padding: 5px;
+	width: 140px;
+	transition: all 0.5s;
+	margin: 0px;
+	font-family: Comic Sans MS;
+}
+errorMsg{
+	color: red;
+	fonr-size: 10px;
+}
+pageName{
+	color: white;
+	font-size: 30px;
+	font-weight: bold;
+}
+
+projectName{
+	color: white;
+	font-size: 80px;
+	font-weight: bold;
+}
+
+.formText{
+	color: white;
+	font-size: 17px;
+	font-weight: bold;
+}
+
+.submitButton{
+	border-radius: 4px;
+	background-color: White;
+	border: none;
+	color: black;
+	font-size: 18px;
+	width: 125px;
+	height: 25px;
+	cursor: pointer;
+	margin: 5px;
+}

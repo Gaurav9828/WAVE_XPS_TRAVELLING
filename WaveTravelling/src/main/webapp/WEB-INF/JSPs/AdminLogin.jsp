@@ -34,14 +34,19 @@
 		<form:form id="loginForm" modelAttribute="AdminLogin" action="loginProcess" method="post" onsubmit="return validate()">
 			<table class = "adminLoginTable">
 				<tr>
-					<td><errorMsg><span id="errorMsg"></span>
+					<th colspan="2"><errorMsg><span id="errorMsg"></span>
 							${message}
 						</errorMsg>
-					</td>
+					</th>
 				</tr>
 				<tr align = "left">
 					<td>
 						<pageName><%out.print(AdminConstantsI.LOGIN);%></pageName>
+					</td>
+					<td align = "right">
+						<a href="${pageContext.request.contextPath}/AdminLogin">
+						<img alt="project_name" style = "width:50px; height:40px;" 
+						src="${pageContext.request.contextPath}/resources/Images/refresh_icon.png"></a>
 					</td>
 				</tr>
 				<tr>

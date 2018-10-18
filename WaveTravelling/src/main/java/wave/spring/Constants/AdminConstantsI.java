@@ -13,7 +13,11 @@ public interface AdminConstantsI {
 			LAST_LOGIN_ATTMEPT = "One more invalid attempt will block your account ..",
 			ACCOUNT_BLOCKED = "Your account has been temporarily blocked due to invalid password attempts ..",
 			USER_BLACK_LISTED = "Your account has been black-listed due to some policies ..",
-			ALREADY_LOGGED_IN = "You are already logged in ..";
+			ALREADY_LOGGED_IN = "You are already logged in ..",
+			
+			//session variables
+			EMPLOYEE_DETAILS = "employeeDetails",
+			EMPLOYEE_MENU_LIST = "employeeMenuList";
 	
 		int MAX_INVALID_PASSWORD_ATTEMPTS = 4;
 }

@@ -17,12 +17,13 @@ public interface SystemConstants {
 			DRIVER_CLASS_NAME = "oracle.jdbc.driver.OracleDriver",
 			DILECT = "org.hibernate.dialect.Oracle10gDialect",
 			DATABASE_URL = "jdbc:oracle:thin:@localhost:1521:XE",
-			USER_NAME = "WAVE_XPS",
-			PASSWORD = "GAV",
+			USER_NAME = "MYDATABASE",
+			PASSWORD = "GAV9828GaV",
 			HBM2DDL_AUTO = "update",
 			C3P0_TIMEOUT = "1000",
 			
 			LOGIN_ERROR = "There was a login error. Please try again after some time.",
-			ACTIVE = "Y";
+			ACTIVE = "Y",
+			INACTIVE = "N";
 			
 }

@@ -11,5 +11,4 @@
     <!-- Dependency Injections -->
     <bean id="adminDao" class="wave.spring.dao.AdminDao" />					
     <bean id="adminLoginDao" class="wave.spring.services.AdminLogin" />
-    <bean id="employeeDetails" class="wave.spring.model.EmployeeDetails" />
 </beans>

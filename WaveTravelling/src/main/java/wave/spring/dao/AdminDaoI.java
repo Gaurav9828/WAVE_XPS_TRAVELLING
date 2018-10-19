@@ -9,8 +9,7 @@ import wave.spring.model.EmployeeDetails;
 public interface AdminDaoI {
   public EmployeeDetails getEmployeeDetails(String id);
   public void setInvalidPasswordAttempt(int userId, int attemptNumber);
-  public void setAdminUserLoggedIn(EmployeeDetails employeeDetails);
+  public void updateEmployeeDetails(EmployeeDetails employeeDetails);
   public List<Employee1MenuList> getEmployeeMenuList(String employeeLevel);
-  public void setAdminLogout(int employeeId);
   public String setAdminPassword(int employeeId, String password);
 }

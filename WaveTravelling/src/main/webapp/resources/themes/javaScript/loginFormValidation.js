@@ -66,3 +66,24 @@ function validateAdminPasswordResetForm()
         return true;
     }
 }
+
+function validateAdminMemorableWordPasswordResetForm()
+{
+	 var id=document.forms["memorableWordPasswordResetForm"]["employeeId"].value;  
+	 if(id==null || id=="" )
+	 {
+	   	document.getElementById("errorMsg").innerHTML="Please enter employee id ..";
+	    return false;
+	 }
+	 var secretWord=document.forms["memorableWordPasswordResetForm"]["memorableWord"].value;
+	 if(secretWord==null || secretWord=="")
+	 {
+	  	document.getElementById("errorMsg").innerHTML="Please enter your secret memorable word ..";
+	    return false;
+	 }
+     else
+    {
+        return true;
+    }
+}
+

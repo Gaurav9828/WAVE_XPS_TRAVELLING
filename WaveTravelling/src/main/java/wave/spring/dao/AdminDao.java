@@ -72,7 +72,7 @@ public class AdminDao implements AdminDaoI {
 	}
 
 	//added by Gaurav Srivastava
-	  public void setAdminUserLoggedIn(EmployeeDetails employeeDetails) {
+	  public void updateEmployeeDetails(EmployeeDetails employeeDetails) {
 		  Session session = null;
 			Transaction transaction = null;
 			try {
@@ -129,30 +129,6 @@ public class AdminDao implements AdminDaoI {
 			return employeeMenuList;
 	  }
 	  
-		//added by Gaurav Srivastava
-	  public void setAdminLogout(int employeeId) {
-			Session session = null;
-			Transaction transaction = null;
-			try {
-				session = HibernateUtils.getSessionFactory().openSession();
-			    transaction = session.beginTransaction();
-			    EmployeeDetails details = (EmployeeDetails) session.get(EmployeeDetails.class,employeeId);
-				details.setLoginStatus(SystemConstants.INACTIVE);	
-			    transaction.commit();
-			    session.close();
-			} catch (Exception e) {
-				 transaction.rollback();
-				 e.printStackTrace();
-			}
-			finally {		
-				try {
-					HibernateUtils.getSessionFactory().close();
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-				session.close();
-			}
-	  }
 
 	  public String setAdminPassword(int employeeId, String password) {
 		  String message = "true";

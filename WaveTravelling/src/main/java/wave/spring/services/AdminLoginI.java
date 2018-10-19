@@ -2,12 +2,14 @@ package wave.spring.services;
 
 import java.util.HashMap;
 
-import wave.spring.model.AdminPasswordReset;
+import wave.spring.model.AdminMemorableWordPasswordReset;
+import wave.spring.model.EmployeeDetails;
 import wave.spring.model.Login;
 
 public interface AdminLoginI {
 	//added by Gaurav Sriavastava
 	public HashMap adminLoginService(Login loginValues);
-	public void adminLogout(int employeeId);
+	public void adminLogout(EmployeeDetails employeeDetails);
 	public String resetAdminPassword(int employeeId,String newPassword);
+	public String resetPasswordAndSendMail(AdminMemorableWordPasswordReset resetValues);
 }

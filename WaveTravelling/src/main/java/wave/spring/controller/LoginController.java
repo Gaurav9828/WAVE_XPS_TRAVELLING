@@ -16,6 +16,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import wave.spring.Constants.AdminConstantsI;
 import wave.spring.Constants.SystemConstants;
+import wave.spring.model.AdminPasswordReset;
 import wave.spring.model.EmployeeDetails;
 import wave.spring.model.Login;
 import wave.spring.services.AdminLogin;
@@ -45,10 +46,16 @@ public class LoginController {
 			mav.addObject("Welcome", "Welcome");
 			session.setAttribute(AdminConstantsI.EMPLOYEE_DETAILS, map.get(AdminConstantsI.EMPLOYEE_DETAILS));
 			session.setAttribute(AdminConstantsI.EMPLOYEE_MENU_LIST, map.get(AdminConstantsI.EMPLOYEE_MENU_LIST));
+			
+		}else if((map.get(SystemConstants.MSG)).equals(AdminConstantsI.PASSWORD_RESET)){
+			mav = new ModelAndView("AdminPasswordReset");
+		    mav.addObject("AdminPasswordReset", new AdminPasswordReset());
+			session.setAttribute(AdminConstantsI.EMPLOYEE_DETAILS, map.get(AdminConstantsI.EMPLOYEE_DETAILS));
+			
 		}else {
 			mav = new ModelAndView("AdminLogin");
 			mav.addObject("AdminLogin", new Login());
-			mav.addObject("message",map.get(SystemConstants.MSG));
+			mav.addObject(SystemConstants.MSG,map.get(SystemConstants.MSG));
 		}
     }catch(Exception e) {
     	e.printStackTrace();
@@ -72,5 +79,34 @@ public class LoginController {
     }
     return mav;
   }
+  
+  //password reset
+  //added by Gaurav Sriavstava
+  @RequestMapping(value = "/adminPasswordReset", method = RequestMethod.POST)
+  public ModelAndView showPasswordReset(HttpServletRequest request, HttpServletResponse response,
+		  @ModelAttribute("AdminPasswordReset") AdminPasswordReset resetValues) {
+	  HttpSession session = request.getSession();
+  	  HashMap<?,?> map = new HashMap();
+	  EmployeeDetails employeeDetails = (EmployeeDetails) session.getAttribute(AdminConstantsI.EMPLOYEE_DETAILS);
+	  ModelAndView mav = null;
+	  if(employeeDetails.getPassword().equals(resetValues.getCurrentPassword())) {
+		 AdminLoginI adminLogin = new AdminLogin();
+		 String message = adminLogin.resetAdminPassword(employeeDetails.getUserId(),resetValues.getNewPassword());
+		 if(message.equals(SystemConstants.ACTIVE)) {
+			 mav = new ModelAndView("AdminLogin");
+			 mav.addObject("AdminLogin", new Login());
+			 mav.addObject(SystemConstants.MSG_SUCCESS, SystemConstants.ADMIN_PASSWORD_RESET_SUCCESSFULL);
+		 }else {
+			 mav.addObject("AdminLogin", new Login());
+			 mav.addObject(SystemConstants.MSG, SystemConstants.SOMETHING_WRONG);
+		 }
+	  }else {
+			 mav = new ModelAndView("AdminPasswordReset");
+			 mav.addObject("AdminPasswordReset", new AdminPasswordReset());
+			 mav.addObject(SystemConstants.MSG, AdminConstantsI.INVALID_USER);
+	  }
+	  return mav;
+  }
+  
   
 }

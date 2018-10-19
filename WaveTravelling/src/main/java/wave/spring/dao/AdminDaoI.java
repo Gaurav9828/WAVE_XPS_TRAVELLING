@@ -12,4 +12,5 @@ public interface AdminDaoI {
   public void setAdminUserLoggedIn(EmployeeDetails employeeDetails);
   public List<Employee1MenuList> getEmployeeMenuList(String employeeLevel);
   public void setAdminLogout(int employeeId);
+  public String setAdminPassword(int employeeId, String password);
 }

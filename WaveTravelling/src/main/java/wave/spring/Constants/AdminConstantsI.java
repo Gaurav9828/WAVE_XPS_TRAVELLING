@@ -7,6 +7,11 @@ public interface AdminConstantsI {
 			LOGIN = "Admin Login",
 			SUBMIT = "Submit",
 			RESET = "Reset",
+			APPLY = "Apply",
+			CURRENT_PASSWORD = "Current Password",
+			NEW_PASSWORD = "New Password",
+			CONFIRM_PASSWORD = "Confirm Password",
+			PASSWORD_RESET = "Admin Password Reset",
 			
 			//messages
 			INVALID_USER = "Either wrong employee id or password ..",

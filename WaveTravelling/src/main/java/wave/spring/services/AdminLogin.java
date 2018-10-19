@@ -44,6 +44,15 @@ public class AdminLogin implements AdminLoginI{
 				return map;
 			}
 			
+			if(employeeDetails.getLastLoginDate() == null) {                             //for first time login 
+				if((loginValues.getPassword()).equals(employeeDetails.getPassword())) {
+					message = AdminConstantsI.PASSWORD_RESET;
+					map.put(SystemConstants.MSG, message);
+					map.put(AdminConstantsI.EMPLOYEE_DETAILS, employeeDetails);
+					return map;
+				}			
+			}
+			
 			SecurityI security = new Security();
 			String password = security.valueEncrptyer(loginValues.getPassword());
 			if(!password.equals(employeeDetails.getPassword())) {
@@ -64,6 +73,7 @@ public class AdminLogin implements AdminLoginI{
 				map.put(SystemConstants.MSG, message);
 				return map;
 			}
+			
 			//logging in
 			//generation menus as per admin level
 			List<Employee1MenuList> menuList = dao.getEmployeeMenuList(employeeDetails.getAdminLevel());
@@ -91,10 +101,23 @@ public class AdminLogin implements AdminLoginI{
 		return map;
 	}
 	
+	//added by Gaurav Srivastava
 	public void adminLogout(int employeeId) {
 		AdminDaoI dao = new AdminDao();
 		dao.setAdminLogout(employeeId);
 	}
-
+	
+	//added by Gaurav Srivastava
+	public String resetAdminPassword(int employeeId, String newPassword) {
+		AdminDaoI dao = new AdminDao();
+		SecurityI security = new Security();
+		String password = security.valueEncrptyer(newPassword);
+		String message = dao.setAdminPassword(employeeId, password);
+		if(message.equals("true")) {
+			return SystemConstants.ACTIVE;
+		}else {
+			return SystemConstants.INACTIVE;
+		}	
+	}
 
 }

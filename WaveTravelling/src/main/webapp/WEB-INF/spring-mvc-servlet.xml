@@ -14,13 +14,6 @@ http://www.springframework.org/schema/mvc/spring-mvc-3.0.xsd">
 		base-package="wave.spring.controller" />
 	<context:annotation-config />
 
-	<!-- Register the welcome.properties -->
-	<bean id="propertyConfigurer"
-		class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
-		<property name="location"
-			value="classpath:jdbc.properties" />
-	</bean>
-
 	<bean id="viewResolver"
 		class="org.springframework.web.servlet.view.InternalResourceViewResolver">
 		<property name="prefix">

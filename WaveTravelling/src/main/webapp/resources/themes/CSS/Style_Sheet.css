@@ -28,6 +28,10 @@ errorMsg{
 	color: red;
 	fonr-size: 10px;
 }
+seccessMsg{
+	color: #00FF00;
+	fonr-size: 10px;
+}
 pageName{
 	color: white;
 	font-size: 30px;

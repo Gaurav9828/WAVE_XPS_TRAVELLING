@@ -154,5 +154,30 @@ public class AdminDao implements AdminDaoI {
 			}
 	  }
 
-
+	  public String setAdminPassword(int employeeId, String password) {
+		  String message = "true";
+		  Session session = null;
+		  Transaction transaction = null;
+		  try {
+			session = HibernateUtils.getSessionFactory().openSession();
+		    transaction = session.beginTransaction();
+		    EmployeeDetails details = (EmployeeDetails) session.get(EmployeeDetails.class,employeeId);
+			details.setPassword(password);
+		    transaction.commit();
+		    session.close();
+		} catch (Exception e) {
+			 transaction.rollback();
+			 e.printStackTrace();
+			 message = "false";
+		}
+		finally {		
+			try {
+				HibernateUtils.getSessionFactory().close();
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+			session.close();
+		}
+		return message;
+	  }
   }

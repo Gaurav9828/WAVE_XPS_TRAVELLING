@@ -9,6 +9,9 @@ public interface SystemConstants {
 			CAPTCHA = "Captcha",
 			TRUE = "true",
 			MSG = "message",
+			MSG_SUCCESS = "successMessage",
+			SOMETHING_WRONG = "Some thing went wrong please try again later ..",
+			ADMIN_PASSWORD_RESET_SUCCESSFULL = "Password has been reset successfully",
 	//added by Gaurav Srivastava
 	//project credentials
 			DEVELOPERS = "Gaurav Srivastava, Prashansa Saxena and Ayush Pandey",

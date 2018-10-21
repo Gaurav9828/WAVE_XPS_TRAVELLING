@@ -14,6 +14,7 @@ public interface SystemConstants {
 			MSG_SUCCESS = "successMessage",
 			SOMETHING_WRONG = "Some thing went wrong please try again later ..",
 			ADMIN_PASSWORD_RESET_SUCCESSFULL = "Password has been reset successfully",
+			ADMIN_PASSWORD_AND_MEMORABLE_WORD_RESET_SUCCESSFULL = "You have successfully set your password and secret memorable word. Now you may login",
 			
 	//mail generation		
 			TEMPORARY_PASSWORD_MAIL_SENT = "We have sent you a temporary password to your registered mail id..",

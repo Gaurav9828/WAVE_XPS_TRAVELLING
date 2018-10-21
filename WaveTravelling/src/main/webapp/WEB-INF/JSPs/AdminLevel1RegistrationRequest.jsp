@@ -63,8 +63,6 @@
 					<td><form:input path="lastName" type="text"/></td>
 				</tr>
 				<tr>
-					<td class = "formText"><spring:bind path="secretWord"><%out.print(AdminConstantsI.SECRET_WORD);%></spring:bind></td>
-					<td><form:input path="secretWord" type="text"/></td>
 					<td class = "formText"><spring:bind path="mobileNumber"><%out.print(AdminConstantsI.MOBILE_NUMBER);%></spring:bind></td>
 					<td><form:input path="mobileNumber" type="text"/></td>
 				</tr>
@@ -100,7 +98,7 @@
 					<td class = "formText"><spring:bind path="captcha"><button type = "submit"
 					class = "captcha" disabled><%out.print(map.get(SystemConstants.CAPTCHA));%></button>
 					</spring:bind></td>
-					<td><form:input path="captcha" type="text" autocomplete="off"/></td>
+					<td><input name="captcha" type="text" autocomplete="off"/></td>
 					<td><input type="hidden" value = "<%out.print(map.get(SystemConstants.CAPTCHA));%>" name = "keyCaptcha"/>
 				</tr>
 				<tr>

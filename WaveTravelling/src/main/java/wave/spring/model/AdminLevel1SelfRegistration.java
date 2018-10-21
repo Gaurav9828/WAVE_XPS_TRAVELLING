@@ -3,7 +3,6 @@ package wave.spring.model;
 public class AdminLevel1SelfRegistration {
 	private String firstName = "";
 	private String lastName = "";
-	private String secretWord = "";
 	private String mobileNumber = "";
 	private String city = "";
 	private String pinCode;
@@ -24,12 +23,6 @@ public class AdminLevel1SelfRegistration {
 	}
 	public void setLastName(String lastName) {
 		this.lastName = lastName;
-	}
-	public String getSecretWord() {
-		return secretWord;
-	}
-	public void setSecretWord(String secretWord) {
-		this.secretWord = secretWord;
 	}
 	public String getMobileNumber() {
 		return mobileNumber;

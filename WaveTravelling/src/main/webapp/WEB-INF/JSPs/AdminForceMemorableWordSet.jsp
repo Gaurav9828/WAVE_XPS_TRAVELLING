@@ -22,56 +22,40 @@
 <script type="text/javascript" src="${pageContext.request.contextPath}/resources/themes/javaScript/loginFormValidation.js"></script>
 </head>
 <body>
-	<%SecurityI security = new Security();
-	  HashMap<String,String> map = new HashMap();
-	  map = security.generateCaptcha();%>
 	<div align = "right">
 		<img alt="project_name" style = "width:300px; height:170px;" src="${pageContext.request.contextPath}/resources/Images/Wave_Page_Img.png"><br>
 		<projectName><%out.print(SystemConstants.PROJECT_NAME_ONE+"\n"+SystemConstants.PROJECT_NAME_TWO); %></projectName><br>
 	</div>
 	
 	<div align = "center">
-		<form:form id="loginForm" modelAttribute="AdminLogin" action="loginProcess" method="post" onsubmit="return validateAdminLoginForm()">
+		<form:form id="adminForceMemorableWordSetForm" modelAttribute="AdminForceMemorableWordSet" action="adminForceMemorableWordSet" 
+		method="post" onsubmit="return adminForceMemorableWordSet()">
 			<table class = "adminLoginTable">
 				<tr>
-					<th colspan="2" align = "left"><errorMsg><span id="errorMsg"></span>
+					<th colspan="2"><errorMsg><span id="errorMsg"></span>
 							${message}
 						</errorMsg>
-						<seccessMsg>${successMessage}</seccessMsg>
 					</th>
 				</tr>
 				<tr align = "left">
-					<td>
-						<pageName><%out.print(AdminConstantsI.ADMIN_LOGIN);%></pageName>
-					</td>
-					<td align = "right">
-						<a href="${pageContext.request.contextPath}/AdminLogin">
-						<img alt="project_name" style = "width:50px; height:40px;" 
-						src="${pageContext.request.contextPath}/resources/Images/refresh_icon.png"></a>
-					</td>
+					<th colspan="2">
+						<pageName><%out.print(AdminConstantsI.SET_MEMORABLE_WORD);%></pageName>
+					</th>
 				</tr>
 				<tr>
-					<td class = "formText"><spring:bind path="authValue1"><%out.print(AdminConstantsI.EMP_ID);%></spring:bind></td>
-					<td><form:input path="authValue1" type="text"/></td>
+					<td class = "formText"><spring:bind path="authValue1"><%out.print(AdminConstantsI.MEMORABLE_WORD);%></spring:bind></td>
+					<td><form:input path="authValue1" type="password"/></td>
 				</tr>
 				<tr>
-					<td class = "formText"><spring:bind path="authValue2"><%out.print(AdminConstantsI.PASSWORD);%></spring:bind></td>
+					<td class = "formText"><spring:bind path="authValue2"><%out.print(AdminConstantsI.CONFIRM_MEMORABLE_WORD);%></spring:bind></td>
 					<td><form:input path="authValue2" type="password"/></td>
 				</tr>
 				<tr>
-					<td class = "formText"><input type = "submit" value = "<%out.print(map.get(SystemConstants.CAPTCHA));%>" class = "captcha" disabled>
-					</td>
-					<td><input name="captcha" type="text" autocomplete="off"/></td>
-					<td><input type="hidden" value = "<%out.print(map.get(SystemConstants.CAPTCHA));%>" name = "keyCaptcha"/>
-				</tr>
-				<tr>
-					<td align = "right"><input type = "submit" class = "submitButton" value="<%out.print(AdminConstantsI.LOGIN);%>"/></td>
+					<td align = "right"><input type = "submit" class = "submitButton" value="<%out.print(AdminConstantsI.APPLY);%>"/></td>
 					<td align = "left"><input type = "reset" class = "submitButton" value="<%out.print(AdminConstantsI.RESET);%>"/></td>
 				</tr>
 			</table>
 		</form:form>
-		<a href = "${pageContext.request.contextPath}/AdminMemorableWordPasswordReset" style = "color:white;">
-		<%out.print(AdminConstantsI.RESET_PASSWORD);%></a>
 	</div>	
 </body>
 </html>

@@ -4,7 +4,8 @@ public interface AdminConstantsI {
 	String  EMP_ID = "Employee Id",    //login form
 			PASSWORD = "Password",
 			RESET_PASSWORD = "Forgot Password",
-			LOGIN = "Admin Login",
+			ADMIN_LOGIN = "Admin Login",
+			LOGIN = "Login",
 			SUBMIT = "Submit",
 			RESET = "Reset",
 			APPLY = "Apply",
@@ -12,7 +13,9 @@ public interface AdminConstantsI {
 			NEW_PASSWORD = "New Password",
 			CONFIRM_PASSWORD = "Confirm Password",
 			PASSWORD_RESET = "Admin Password Reset",
+			SET_MEMORABLE_WORD = "Set Memorable Word",
 			MEMORABLE_WORD = "Memorable Word",
+			CONFIRM_MEMORABLE_WORD = "Confirm Memorable Word",
 			
 			//messages
 			INVALID_USER = "Either wrong employee id or password ..",
@@ -37,7 +40,7 @@ public interface AdminConstantsI {
 			PIN_CODE = "Pin Code",
 			EMAIL_ID = "Email Id",
 			CHOOSE_IDENTITY = "Choose Identity Type",
-			ID_NUMBER = "Identity Number",
+			ID_NUMBER = "Identity Secquence",
 			ADHAR_ID = "Adhar",
 			PAN_ID = "Pan",
 			PASSPORT_ID = "Passport",

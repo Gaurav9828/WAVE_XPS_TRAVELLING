@@ -215,4 +215,21 @@ public class AdminLogin implements AdminLoginI {
 		}
 		return MSG;
 	}
+	
+	public String setSecretMemorableWord(EmployeeDetails employeeDetails, String secretWord) {
+		String message = "";
+		SecurityI security = new Security();
+		employeeDetails.setMemorableWord(security.valueEncrptyer(secretWord));
+		employeeDetails.setPassword(security.valueEncrptyer(employeeDetails.getPassword()));
+		try {
+			AdminDaoI dao = new AdminDao();
+			dao.updateEmployeeDetails(employeeDetails);
+			message = SystemConstants.ACTIVE;
+		}catch(Exception e) {
+			e.printStackTrace();
+			message = SystemConstants.INACTIVE;
+		}
+		return message;
+	}
+
 }

@@ -34,6 +34,30 @@ function validateAdminLoginForm()
     }
 }
 
+function adminForceMemorableWordSet()
+{
+    var memorableWord=document.forms["adminForceMemorableWordSetForm"]["authValue1"].value;  
+    if(memorableWord==null || memorableWord=="" )
+    {
+    	document.getElementById("errorMsg").innerHTML="Please enter your secret memorable word ..";
+        return false;
+    }
+    var confirm=document.forms["adminForceMemorableWordSetForm"]["authValue2"].value;
+    if(confirm==null || confirm=="")
+    {
+    	document.getElementById("errorMsg").innerHTML="Please confirm your secret memorable word ..";
+        return false;
+    }
+    if(memorableWord!=confirm){
+    	document.getElementById("errorMsg").innerHTML="Please same memorable word ..";
+        return false;
+    }
+    else
+    {
+        return true;
+    }
+}
+
 function validateAdminPasswordResetForm()
 {
     var currentPass=document.forms["passwordResetForm"]["authValue1"].value;  
@@ -69,64 +93,16 @@ function validateAdminPasswordResetForm()
 
 function validateAdminMemorableWordPasswordResetForm()
 {
-	 var firstName=document.forms["memorableWordPasswordResetForm"]["firstName"].value;  
-	 if(firstName==null || firstName=="" )
+	 var id=document.forms["memorableWordPasswordResetForm"]["authValue1"].value;  
+	 if(id==null || id=="" )
 	 {
-	   	document.getElementById("errorMsg").innerHTML="Please enter your first name ..";
+	   	document.getElementById("errorMsg").innerHTML="Please enter employee id ..";
 	    return false;
 	 }
-	 var lastName=document.forms["memorableWordPasswordResetForm"]["lastName"].value;  
-	 if(lastName==null || lastName=="")
-	 {
-	  	document.getElementById("errorMsg").innerHTML="Please enter your last name ..";
-	    return false;
-	 }
-	 var secretWord=document.forms["memorableWordPasswordResetForm"]["secretWord"].value;  
+	 var secretWord=document.forms["memorableWordPasswordResetForm"]["authValue2"].value;
 	 if(secretWord==null || secretWord=="")
 	 {
 	  	document.getElementById("errorMsg").innerHTML="Please enter your secret memorable word ..";
-	    return false;
-	 }
-	 var mobileNumber=document.forms["memorableWordPasswordResetForm"]["mobileNumber"].value;  
-	 if(mobileNumber==null || mobileNumber=="")
-	 {
-	  	document.getElementById("errorMsg").innerHTML="Please enter your mobile number ..";
-	    return false;
-	 }
-	 var city=document.forms["memorableWordPasswordResetForm"]["city"].value;  
-	 if(city==null || city=="")
-	 {
-	  	document.getElementById("errorMsg").innerHTML="Please enter your city name ..";
-	    return false;
-	 }
-	 var pinCode=document.forms["memorableWordPasswordResetForm"]["pinCode"].value;  
-	 if(pinCode==null || pinCode=="")
-	 {
-	  	document.getElementById("errorMsg").innerHTML="Please enter your pin code ..";
-	    return false;
-	 }
-	 var identityType=document.forms["memorableWordPasswordResetForm"]["identityType"].value;  
-	 if(identityType==null || identityType=="")
-	 {
-	  	document.getElementById("errorMsg").innerHTML="Please select your identity type ..";
-	    return false;
-	 }
-	 var identityNumber=document.forms["memorableWordPasswordResetForm"]["identityNumber"].value;  
-	 if(identityNumber==null || identityNumber=="")
-	 {
-	  	document.getElementById("errorMsg").innerHTML="Please enter your identity number ..";
-	    return false;
-	 }
-	 var landMark=document.forms["memorableWordPasswordResetForm"]["landMark"].value;  
-	 if(landMark==null || landMark=="")
-	 {
-	  	document.getElementById("errorMsg").innerHTML="Please enter your land mark ..";
-	    return false;
-	 }
-	 var emailId=document.forms["memorableWordPasswordResetForm"]["emailId"].value;  
-	 if(emailId==null || emailId=="")
-	 {
-	  	document.getElementById("errorMsg").innerHTML="Please enter your email id ..";
 	    return false;
 	 }
      else
@@ -136,7 +112,87 @@ function validateAdminMemorableWordPasswordResetForm()
 }
 
 
-function validateAdminLevel1SelfRegistartionForm(){
-	var id=document.forms["adminLevel1Registration"]["authValue1"].value; 
+function validateAdminLevel1SelfRegistartionForm() {
+	var numExp = /^[0-9]+$/;
+	var mailformat = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
+	var firstName = document.forms["adminLevel1Registration"]["firstName"].value;
+	if (firstName == null || firstName == "") {
+		document.getElementById("errorMsg").innerHTML = "Please enter your first name ..";
+		return false;
+	}
+	var lastName = document.forms["adminLevel1Registration"]["lastName"].value;
+	if (lastName == null || lastName == "") {
+		document.getElementById("errorMsg").innerHTML = "Please enter your last name ..";
+		return false;
+	}
+	var mobileNumber = document.forms["adminLevel1Registration"]["mobileNumber"].value;
+	if (mobileNumber == null || mobileNumber == "") {
+		document.getElementById("errorMsg").innerHTML = "Please enter your mobile number ..";
+		return false;
+	}
+	if (!mobileNumber.match(numExp)) {
+		document.getElementById("errorMsg").innerHTML = "Mobile number should be a numeric value ..";
+		return false;
+	}
+	if (mobileNumber.length < 10) {
+		document.getElementById("errorMsg").innerHTML = "Mobile number should be of 10 digit ..";
+		return false;
+	}
+	var city = document.forms["adminLevel1Registration"]["city"].value;
+	if (city == null || city == "") {
+		document.getElementById("errorMsg").innerHTML = "Please enter your city name ..";
+		return false;
+	}
+	var pinCode = document.forms["adminLevel1Registration"]["pinCode"].value;
+	if (pinCode == null || pinCode == "") {
+		document.getElementById("errorMsg").innerHTML = "Please enter your pin code ..";
+		return false;
+	}
+	if (!pinCode.match(numExp)) {
+		document.getElementById("errorMsg").innerHTML = "PIN code should be a numeric value ..";
+		return false;
+	}
+	var identityType = document.forms["adminLevel1Registration"]["identityType"].value;
+	if (identityType == null || identityType == "") {
+		document.getElementById("errorMsg").innerHTML = "Please select your identity type ..";
+		return false;
+	}
+	var identityNumber = document.forms["adminLevel1Registration"]["identityNumber"].value;
+	if (identityNumber == null || identityNumber == "") {
+		document.getElementById("errorMsg").innerHTML = "Please enter your identity number ..";
+		return false;
+	}
+	var landMark = document.forms["adminLevel1Registration"]["landMark"].value;
+	if (landMark == null || landMark == "") {
+		document.getElementById("errorMsg").innerHTML = "Please enter your land mark ..";
+		return false;
+	}
+	var emailId = document.forms["adminLevel1Registration"]["emailId"].value;
+	if (emailId == null || emailId == "") {
+		document.getElementById("errorMsg").innerHTML = "Please enter your email id ..";
+		return false;
+	}
+	if (!emailId.match(mailformat)) {
+		document.getElementById("errorMsg").innerHTML = "Please enter a valid email id ..";
+		return false;
+	}
+	var capp=document.forms["adminLevel1Registration"]["captcha"].value;
+    if(capp==null || capp=="")
+    {
+    	document.getElementById("errorMsg").innerHTML="Please enter captcha ..";
+        return false;
+    }
+    var key=document.forms["adminLevel1Registration"]["keyCaptcha"].value;
+    if(key!=capp){
+    	setTimeout(function(){
+    		   window.location.reload(1);
+    	}, 1500);
+    	document.getElementById("errorMsg").innerHTML="Invalid captcha entered ..";
+        return false;
+    }
+    else {
+		return true;
+	}
 }
+
 

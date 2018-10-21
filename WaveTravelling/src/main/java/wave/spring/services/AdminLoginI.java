@@ -11,4 +11,5 @@ public interface AdminLoginI {
 	public void adminLogout(EmployeeDetails employeeDetails);
 	public String resetAdminPassword(int employeeId,String newPassword);
 	public String resetPasswordAndSendMail(Login resetValues);
+	public String setSecretMemorableWord(EmployeeDetails employeeDetails, String secretWord);
 }

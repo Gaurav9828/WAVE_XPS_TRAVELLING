@@ -18,7 +18,7 @@ public interface SystemConstants {
 	//mail generation		
 			TEMPORARY_PASSWORD_MAIL_SENT = "We have sent you a temporary password to your registered mail id..",
 			ADMIN_SENDER_MAIL_ID = "gauravsri9828@gmail.com",
-			SENDER_PASSWORD = "XXXXXX",
+			SENDER_PASSWORD = "XXXXXXXXX",
 			
 			MAIL_TRANSPORT_PROTOCOL = "mail.transport.protocol",
 			MAIL_HOST = "mail.host",

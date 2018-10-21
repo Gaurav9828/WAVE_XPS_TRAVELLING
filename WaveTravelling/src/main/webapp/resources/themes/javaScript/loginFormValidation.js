@@ -1,13 +1,13 @@
 function validateAdminLoginForm()
 {
-    var id=document.forms["loginForm"]["id"].value;  
+    var id=document.forms["loginForm"]["authValue1"].value;  
     if(id==null || id=="" )
     {
     	document.getElementById("errorMsg").innerHTML="Please enter employee id ..";
         return false;
     }
 
-    var pass=document.forms["loginForm"]["password"].value;
+    var pass=document.forms["loginForm"]["authValue2"].value;
     if(pass==null || pass=="")
     {
     	document.getElementById("errorMsg").innerHTML="Please enter your password ..";
@@ -36,7 +36,7 @@ function validateAdminLoginForm()
 
 function validateAdminPasswordResetForm()
 {
-    var currentPass=document.forms["passwordResetForm"]["currentPassword"].value;  
+    var currentPass=document.forms["passwordResetForm"]["authValue1"].value;  
     if(currentPass==null || currentPass=="" )
     {
     	document.getElementById("errorMsg").innerHTML="Please enter your current password ..";
@@ -50,7 +50,7 @@ function validateAdminPasswordResetForm()
         return false;
     }
     
-    var newPass=document.forms["passwordResetForm"]["newPassword"].value;
+    var newPass=document.forms["passwordResetForm"]["authValue2"].value;
     if(newPass==null || newPass=="")
     {
     	document.getElementById("errorMsg").innerHTML="Please confirm your password ..";
@@ -69,21 +69,74 @@ function validateAdminPasswordResetForm()
 
 function validateAdminMemorableWordPasswordResetForm()
 {
-	 var id=document.forms["memorableWordPasswordResetForm"]["employeeId"].value;  
-	 if(id==null || id=="" )
+	 var firstName=document.forms["memorableWordPasswordResetForm"]["firstName"].value;  
+	 if(firstName==null || firstName=="" )
 	 {
-	   	document.getElementById("errorMsg").innerHTML="Please enter employee id ..";
+	   	document.getElementById("errorMsg").innerHTML="Please enter your first name ..";
 	    return false;
 	 }
-	 var secretWord=document.forms["memorableWordPasswordResetForm"]["memorableWord"].value;
+	 var lastName=document.forms["memorableWordPasswordResetForm"]["lastName"].value;  
+	 if(lastName==null || lastName=="")
+	 {
+	  	document.getElementById("errorMsg").innerHTML="Please enter your last name ..";
+	    return false;
+	 }
+	 var secretWord=document.forms["memorableWordPasswordResetForm"]["secretWord"].value;  
 	 if(secretWord==null || secretWord=="")
 	 {
 	  	document.getElementById("errorMsg").innerHTML="Please enter your secret memorable word ..";
+	    return false;
+	 }
+	 var mobileNumber=document.forms["memorableWordPasswordResetForm"]["mobileNumber"].value;  
+	 if(mobileNumber==null || mobileNumber=="")
+	 {
+	  	document.getElementById("errorMsg").innerHTML="Please enter your mobile number ..";
+	    return false;
+	 }
+	 var city=document.forms["memorableWordPasswordResetForm"]["city"].value;  
+	 if(city==null || city=="")
+	 {
+	  	document.getElementById("errorMsg").innerHTML="Please enter your city name ..";
+	    return false;
+	 }
+	 var pinCode=document.forms["memorableWordPasswordResetForm"]["pinCode"].value;  
+	 if(pinCode==null || pinCode=="")
+	 {
+	  	document.getElementById("errorMsg").innerHTML="Please enter your pin code ..";
+	    return false;
+	 }
+	 var identityType=document.forms["memorableWordPasswordResetForm"]["identityType"].value;  
+	 if(identityType==null || identityType=="")
+	 {
+	  	document.getElementById("errorMsg").innerHTML="Please select your identity type ..";
+	    return false;
+	 }
+	 var identityNumber=document.forms["memorableWordPasswordResetForm"]["identityNumber"].value;  
+	 if(identityNumber==null || identityNumber=="")
+	 {
+	  	document.getElementById("errorMsg").innerHTML="Please enter your identity number ..";
+	    return false;
+	 }
+	 var landMark=document.forms["memorableWordPasswordResetForm"]["landMark"].value;  
+	 if(landMark==null || landMark=="")
+	 {
+	  	document.getElementById("errorMsg").innerHTML="Please enter your land mark ..";
+	    return false;
+	 }
+	 var emailId=document.forms["memorableWordPasswordResetForm"]["emailId"].value;  
+	 if(emailId==null || emailId=="")
+	 {
+	  	document.getElementById("errorMsg").innerHTML="Please enter your email id ..";
 	    return false;
 	 }
      else
     {
         return true;
     }
+}
+
+
+function validateAdminLevel1SelfRegistartionForm(){
+	var id=document.forms["adminLevel1Registration"]["authValue1"].value; 
 }
 

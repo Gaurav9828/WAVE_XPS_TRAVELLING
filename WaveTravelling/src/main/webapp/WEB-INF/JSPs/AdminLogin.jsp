@@ -51,18 +51,17 @@
 					</td>
 				</tr>
 				<tr>
-					<td class = "formText"><spring:bind path="id"><%out.print(AdminConstantsI.EMP_ID);%></spring:bind></td>
-					<td><form:input path="id" type="text"/></td>
+					<td class = "formText"><spring:bind path="authValue1"><%out.print(AdminConstantsI.EMP_ID);%></spring:bind></td>
+					<td><form:input path="authValue1" type="text"/></td>
 				</tr>
 				<tr>
-					<td class = "formText"><spring:bind path="password"><%out.print(AdminConstantsI.PASSWORD);%></spring:bind></td>
-					<td><form:input path="password" type="password"/></td>
+					<td class = "formText"><spring:bind path="authValue2"><%out.print(AdminConstantsI.PASSWORD);%></spring:bind></td>
+					<td><form:input path="authValue2" type="password"/></td>
 				</tr>
 				<tr>
-					<td class = "formText"><spring:bind path="captcha"><input type = "submit" value = "<%out.print(map.get(SystemConstants.CAPTCHA));%>"
-					class = "captcha" disabled>
-					</spring:bind></td>
-					<td><form:input path="captcha" type="text" autocomplete="off"/></td>
+					<td class = "formText"><input type = "submit" value = "<%out.print(map.get(SystemConstants.CAPTCHA));%>" class = "captcha" disabled>
+					</td>
+					<td><input name="captcha" type="text" autocomplete="off"/></td>
 					<td><input type="hidden" value = "<%out.print(map.get(SystemConstants.CAPTCHA));%>" name = "keyCaptcha"/>
 				</tr>
 				<tr>

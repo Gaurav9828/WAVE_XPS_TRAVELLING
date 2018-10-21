@@ -46,12 +46,12 @@
 					</th>
 				</tr>
 				<tr>
-					<td class = "formText"><spring:bind path="employeeId"><%out.print(AdminConstantsI.EMP_ID);%></spring:bind></td>
-					<td><form:input path="employeeId" type="text"/></td>
+					<td class = "formText"><spring:bind path="authValue1"><%out.print(AdminConstantsI.EMP_ID);%></spring:bind></td>
+					<td><form:input path="authValue1" type="text"/></td>
 				</tr>
 				<tr>
-					<td class = "formText"><spring:bind path="memorableWord"><%out.print(AdminConstantsI.MEMORABLE_WORD);%></spring:bind></td>
-					<td><form:input path="memorableWord" type="password"/></td>
+					<td class = "formText"><spring:bind path="authValue2"><%out.print(AdminConstantsI.MEMORABLE_WORD);%></spring:bind></td>
+					<td><form:input path="authValue2" type="password"/></td>
 				</tr>
 				<tr>
 					<td align = "right"><input type = "submit" class = "submitButton" value="<%out.print(AdminConstantsI.APPLY);%>"/></td>

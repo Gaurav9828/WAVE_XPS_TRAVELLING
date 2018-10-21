@@ -24,7 +24,25 @@ public interface AdminConstantsI {
 			
 			//session variables
 			EMPLOYEE_DETAILS = "employeeDetails",
-			EMPLOYEE_MENU_LIST = "employeeMenuList";
-	
+			EMPLOYEE_MENU_LIST = "employeeMenuList",
+			
+			//admin registration request form
+				//personal details
+			REGISTRATION_REQUEST = "Registration Request",
+			FIRST_NAME = "First Name",
+			LAST_NAME = "Last Name",
+			SECRET_WORD = "Secret Memorable Word",
+			MOBILE_NUMBER = "Mobile Number",
+			CITY = "Choose City",
+			PIN_CODE = "Pin Code",
+			EMAIL_ID = "Email Id",
+			CHOOSE_IDENTITY = "Choose Identity Type",
+			ID_NUMBER = "Identity Number",
+			ADHAR_ID = "Adhar",
+			PAN_ID = "Pan",
+			PASSPORT_ID = "Passport",
+			LAND_MARK = "Land Mark";
+				//vehile details
+			
 		int MAX_INVALID_PASSWORD_ATTEMPTS = 4;
 }

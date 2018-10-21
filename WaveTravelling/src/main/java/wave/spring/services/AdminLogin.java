@@ -18,7 +18,6 @@ import wave.spring.Constants.AdminConstantsI;
 import wave.spring.Constants.SystemConstants;
 import wave.spring.dao.AdminDao;
 import wave.spring.dao.AdminDaoI;
-import wave.spring.model.AdminMemorableWordPasswordReset;
 import wave.spring.model.Employee1MenuList;
 import wave.spring.model.EmployeeDetails;
 import wave.spring.model.Login;
@@ -33,7 +32,7 @@ public class AdminLogin implements AdminLoginI {
 			String message = SystemConstants.LOGIN_ERROR;
 			AdminDaoI dao = new AdminDao();
 			EmployeeDetails employeeDetails = new EmployeeDetails();
-			employeeDetails = dao.getEmployeeDetails(loginValues.getId());
+			employeeDetails = dao.getEmployeeDetails(loginValues.getAuthValue1());
 			if (employeeDetails == null) {
 				message = AdminConstantsI.INVALID_USER;
 				map.put(SystemConstants.MSG, message);
@@ -55,7 +54,7 @@ public class AdminLogin implements AdminLoginI {
 			}
 
 			if (employeeDetails.getLastLoginDate() == null) { // for first time login
-				if ((loginValues.getPassword()).equals(employeeDetails.getPassword())) {
+				if ((loginValues.getAuthValue2()).equals(employeeDetails.getPassword())) {
 					message = AdminConstantsI.PASSWORD_RESET;
 					map.put(SystemConstants.MSG, message);
 					map.put(AdminConstantsI.EMPLOYEE_DETAILS, employeeDetails);
@@ -64,7 +63,7 @@ public class AdminLogin implements AdminLoginI {
 			}
 
 			SecurityI security = new Security();
-			String password = security.valueEncrptyer(loginValues.getPassword());
+			String password = security.valueEncrptyer(loginValues.getAuthValue2());
 			if (!password.equals(employeeDetails.getPassword())) {
 				dao.setInvalidPasswordAttempt(employeeDetails.getUserId(),
 						employeeDetails.getInvalidPasswordAttempts() + 1);
@@ -133,19 +132,35 @@ public class AdminLogin implements AdminLoginI {
 	}
 
 	// added by Gaurav Srivastava
-	public String resetPasswordAndSendMail(AdminMemorableWordPasswordReset resetValues) {
+	public String resetPasswordAndSendMail(Login resetValues) {
 		String message = "";
 		AdminDaoI dao = new AdminDao();
 		EmployeeDetails employeeDetails = new EmployeeDetails();
-		employeeDetails = dao.getEmployeeDetails(resetValues.getEmployeeId());
+		employeeDetails = dao.getEmployeeDetails(resetValues.getAuthValue1());
 		if (employeeDetails == null) {
 			message = SystemConstants.FALSE;
 		}
 		SecurityI security = new Security();
-		String inputMemorableWord = security.valueEncrptyer(resetValues.getMemorableWord());
+		String inputMemorableWord = security.valueEncrptyer(resetValues.getAuthValue2());
 		if (employeeDetails.getMemorableWord().equals(inputMemorableWord)) {
-			String msg = sendTemporaryPasswordMail(employeeDetails);
+			HashMap<String, String> map = new HashMap();
+			map.put("to", employeeDetails.getEmailId());
+			map.put("from", SystemConstants.ADMIN_SENDER_MAIL_ID);
+			map.put("subject", SystemConstants.TEMPORARY_PASSWORD_RESET_SUBJECT);
+
+			HashMap<String, String> val = security.generateCaptcha();
+			String temporartPassword = val.get(SystemConstants.CAPTCHA);
+			String messageToBeSent = temporartPassword + SystemConstants.FIRST_MESSAGE+"\n"+ SystemConstants.SECOND_MESSAGE
+					+"\n\n\n\n"+ SystemConstants.THIRD_MESSAGE;
+			
+			map.put("msg", messageToBeSent);
+			map.put("password", SystemConstants.SENDER_PASSWORD);
+			String msg = sendTemporaryPasswordMail(map);
 			if (msg.equals(SystemConstants.ACTIVE)) {
+				employeeDetails.setLastLoginDate(null);
+				employeeDetails.setPassword(temporartPassword);
+
+				dao.updateEmployeeDetails(employeeDetails);
 				message = SystemConstants.ACTIVE;
 			} else {
 				message = SystemConstants.INACTIVE;
@@ -156,19 +171,14 @@ public class AdminLogin implements AdminLoginI {
 		return message;
 	}
 
-	public static String sendTemporaryPasswordMail(EmployeeDetails employeeDetails) {
+	public static String sendTemporaryPasswordMail(HashMap<String, String> map) {
 		String MSG = "";
 		try {
-			String to = employeeDetails.getEmailId();
-			String from = SystemConstants.ADMIN_SENDER_MAIL_ID;
-			String subject = SystemConstants.TEMPORARY_PASSWORD_RESET_SUBJECT;
-
-			SecurityI security = new Security();
-			HashMap<String, String> map = security.generateCaptcha();
-			String temporartPassword = map.get(SystemConstants.CAPTCHA);
-			String msg = temporartPassword + SystemConstants.FIRST_MESSAGE+"\n"+ SystemConstants.SECOND_MESSAGE
-					+"\n\n\n\n"+ SystemConstants.THIRD_MESSAGE;
-			final String password = SystemConstants.SENDER_PASSWORD;
+			String to = map.get("to");
+			String from = map.get("from");
+			String subject = map.get("subject");
+			final String password = map.get("password");
+			String msg = map.get("msg");
 
 			Properties props = new Properties();
 			props.setProperty(SystemConstants.MAIL_TRANSPORT_PROTOCOL, "smtp");
@@ -198,12 +208,6 @@ public class AdminLogin implements AdminLoginI {
 			transport.connect();
 			Transport.send(message);
 			transport.close();
-
-			employeeDetails.setLastLoginDate(null);
-			employeeDetails.setPassword(temporartPassword);
-
-			AdminDaoI dao = new AdminDao();
-			dao.updateEmployeeDetails(employeeDetails);
 			MSG = SystemConstants.ACTIVE;
 		} catch (MessagingException mex) {
 			mex.printStackTrace();

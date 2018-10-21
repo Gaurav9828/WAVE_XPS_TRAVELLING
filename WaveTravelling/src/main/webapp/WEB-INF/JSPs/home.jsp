@@ -11,10 +11,10 @@
 	href="${pageContext.request.contextPath}/resources/Images/Wave_Icon.png">
 <style type="text/css">
 button {
-	border-radius: 4px;
-	background-color: transparent;
+    border-radius: 100%;
+	background-color: white;
 	border: none;
-	color: white;
+	color: Red;
 	font-size: 38px;
 	width: 132px;
 	height: 60px;

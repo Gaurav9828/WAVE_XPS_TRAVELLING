@@ -1,26 +1,18 @@
 package wave.spring.model;
 public class Login {
-	  private String id;
-	  private String password;
-	  private String captcha;
-	public String getId() {
-		return id;
+	  private String authValue1;
+	  private String authValue2;
+	public String getAuthValue1() {
+		return authValue1;
 	}
-	public void setId(String id) {
-		this.id = id;
+	public void setAuthValue1(String authValue1) {
+		this.authValue1 = authValue1;
 	}
-	public String getPassword() {
-		return password;
+	public String getAuthValue2() {
+		return authValue2;
 	}
-	public void setPassword(String password) {
-		this.password = password;
-	}
-	public String getCaptcha() {
-		return captcha;
-	}
-	public void setCaptcha(String captcha) {
-		this.captcha = captcha;
+	public void setAuthValue2(String authValue2) {
+		this.authValue2 = authValue2;
 	}
 
-	
 }

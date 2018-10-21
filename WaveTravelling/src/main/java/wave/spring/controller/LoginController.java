@@ -16,8 +16,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import wave.spring.Constants.AdminConstantsI;
 import wave.spring.Constants.SystemConstants;
-import wave.spring.model.AdminMemorableWordPasswordReset;
-import wave.spring.model.AdminPasswordReset;
+import wave.spring.model.AdminLevel1SelfRegistration;
 import wave.spring.model.EmployeeDetails;
 import wave.spring.model.Login;
 import wave.spring.services.AdminLogin;
@@ -32,6 +31,7 @@ public class LoginController {
     mav.addObject("AdminLogin", new Login());
     return mav;
   }
+  
   //Added by Gaurav Srivastava
   @RequestMapping(value = "/loginProcess", method = RequestMethod.POST)
   public ModelAndView loginProcess(HttpServletRequest request, HttpServletResponse response,
@@ -50,7 +50,7 @@ public class LoginController {
 			
 		}else if((map.get(SystemConstants.MSG)).equals(AdminConstantsI.PASSWORD_RESET)){
 			mav = new ModelAndView("AdminPasswordReset");
-		    mav.addObject("AdminPasswordReset", new AdminPasswordReset());
+		    mav.addObject("AdminPasswordReset", new Login());
 			session.setAttribute(AdminConstantsI.EMPLOYEE_DETAILS, map.get(AdminConstantsI.EMPLOYEE_DETAILS));
 			
 		}else {
@@ -85,14 +85,14 @@ public class LoginController {
   //added by Gaurav Sriavstava
   @RequestMapping(value = "/adminPasswordReset", method = RequestMethod.POST)
   public ModelAndView showPasswordReset(HttpServletRequest request, HttpServletResponse response,
-		  @ModelAttribute("AdminPasswordReset") AdminPasswordReset resetValues) {
+		  @ModelAttribute("AdminPasswordReset") Login resetValues) {
 	  HttpSession session = request.getSession();
   	  HashMap<?,?> map = new HashMap();
 	  EmployeeDetails employeeDetails = (EmployeeDetails) session.getAttribute(AdminConstantsI.EMPLOYEE_DETAILS);
 	  ModelAndView mav = null;
-	  if(employeeDetails.getPassword().equals(resetValues.getCurrentPassword())) {
+	  if(employeeDetails.getPassword().equals(resetValues.getAuthValue1())) {
 		 AdminLoginI adminLogin = new AdminLogin();
-		 String message = adminLogin.resetAdminPassword(employeeDetails.getUserId(),resetValues.getNewPassword());
+		 String message = adminLogin.resetAdminPassword(employeeDetails.getUserId(),resetValues.getAuthValue2());
 		 if(message.equals(SystemConstants.ACTIVE)) {
 			 mav = new ModelAndView("AdminLogin");
 			 mav.addObject("AdminLogin", new Login());
@@ -103,7 +103,7 @@ public class LoginController {
 		 }
 	  }else {
 			 mav = new ModelAndView("AdminPasswordReset");
-			 mav.addObject("AdminPasswordReset", new AdminPasswordReset());
+			 mav.addObject("AdminPasswordReset", new Login());
 			 mav.addObject(SystemConstants.MSG, AdminConstantsI.INVALID_USER);
 	  }
 	  return mav;
@@ -112,13 +112,13 @@ public class LoginController {
   @RequestMapping(value = "/AdminMemorableWordPasswordReset", method = RequestMethod.GET)
   public ModelAndView showMemorableWordPassworReset(HttpServletRequest request, HttpServletResponse response) {
     ModelAndView mav = new ModelAndView("AdminMemorableWordPasswordReset");
-    mav.addObject("AdminMemorableWordPasswordReset", new AdminMemorableWordPasswordReset());
+    mav.addObject("AdminMemorableWordPasswordReset", new Login());
     return mav;
   }
   
   @RequestMapping(value = "/sendMailToResetPassword", method = RequestMethod.POST)
   public ModelAndView sendMailToResetPassword(HttpServletRequest request, HttpServletResponse response,
-		  @ModelAttribute("AdminMemorableWordPasswordReset") AdminMemorableWordPasswordReset resetValues) {
+		  @ModelAttribute("AdminMemorableWordPasswordReset") Login resetValues) {
 	  ModelAndView mav = null;
     try {
     	AdminLoginI adminLogin = new AdminLogin();
@@ -127,7 +127,7 @@ public class LoginController {
     		mav = new ModelAndView("AdminLogin");
     		mav.addObject("AdminLogin", new Login());
     		mav.addObject(SystemConstants.MSG_SUCCESS, SystemConstants.TEMPORARY_PASSWORD_MAIL_SENT);
-    	}else if(message.equals(SystemConstants.FALSE)) {
+    	}else if(message.equals(SystemConstants.FALSE) || message.equals(SystemConstants.INACTIVE)) {
     		mav = new ModelAndView("AdminLogin");
     		mav.addObject("AdminLogin", new Login());
     		mav.addObject(SystemConstants.MSG, AdminConstantsI.INVALID_USERID_OR_SECRET_WORD);

@@ -92,21 +92,23 @@ public class LoginController {
 		ModelAndView mav = null;
 		if (employeeDetails.getPassword().equals(resetValues.getAuthValue1())) {
 			AdminLoginI adminLogin = new AdminLogin();
-			String message = adminLogin.resetAdminPassword(employeeDetails.getUserId(), resetValues.getAuthValue2());
-			if (message.equals(SystemConstants.ACTIVE)) {
 				if (employeeDetails.getMemorableWord() == null) {
+					employeeDetails.setPassword(resetValues.getAuthValue2());
 					mav = new ModelAndView("AdminForceMemorableWordSet");
 					mav.addObject("AdminForceMemorableWordSet", new Login());
 				} else {
-					mav = new ModelAndView("AdminLogin");
-					mav.addObject("AdminLogin", new Login());
-					mav.addObject(SystemConstants.MSG_SUCCESS, SystemConstants.ADMIN_PASSWORD_RESET_SUCCESSFULL);
+					String message = adminLogin.resetAdminPassword(employeeDetails.getUserId(), resetValues.getAuthValue2());
+					if (message.equals(SystemConstants.ACTIVE)) {
+						mav = new ModelAndView("AdminLogin");
+						mav.addObject("AdminLogin", new Login());
+						mav.addObject(SystemConstants.MSG_SUCCESS, SystemConstants.ADMIN_PASSWORD_RESET_SUCCESSFULL);
+					}else {
+						mav.addObject("AdminLogin", new Login());
+						mav.addObject(SystemConstants.MSG, SystemConstants.SOMETHING_WRONG);
+					}		
 				}
-			} else {
-				mav.addObject("AdminLogin", new Login());
-				mav.addObject(SystemConstants.MSG, SystemConstants.SOMETHING_WRONG);
-			}
-		} else {
+			} 
+		else {
 			mav = new ModelAndView("AdminPasswordReset");
 			mav.addObject("AdminPasswordReset", new Login());
 			mav.addObject(SystemConstants.MSG, AdminConstantsI.INVALID_USER);

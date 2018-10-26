@@ -28,6 +28,7 @@ public interface AdminConstantsI {
 			//session variables
 			EMPLOYEE_DETAILS = "employeeDetails",
 			EMPLOYEE_MENU_LIST = "employeeMenuList",
+			EMPLOYEE_MENU_DOMAIN_LIST = "menuDomainList",
 			
 			//admin registration request form
 				//personal details
@@ -44,8 +45,17 @@ public interface AdminConstantsI {
 			ADHAR_ID = "Adhar",
 			PAN_ID = "Pan",
 			PASSPORT_ID = "Passport",
-			LAND_MARK = "Land Mark";
-				//vehile details
+			LAND_MARK = "Land Mark",
+			
+			//merchant registration request
+			ALREADY_REGISTERED = "AR",
+		    ALREADY_REGISTERED_MSG = "You have already applied for the merchant registration ..",
+		    ALREADY_MERCHANT = "AM",
+		    ALREADY_MERCHANT_MSG = "You are already a merchant of Wave Xps Travelling",
+		    BLACK_LISTED_REQUEST = "BL",
+		    BLACK_LISTED_REQUEST_MSG = "Sorry ! You are black listed for registration request due to some company policies ..",
+		    REGISTRAION_REQUEST_SUCCESSFUL = "Your registration request has been accepted. We have sent you a email for further informations ..",
+		    SOME_THING_WRONG_REGISTRATION = "Sorry ! Registration failed due to some error. Please try after some time ..";
 			
 		int MAX_INVALID_PASSWORD_ATTEMPTS = 4;
 }

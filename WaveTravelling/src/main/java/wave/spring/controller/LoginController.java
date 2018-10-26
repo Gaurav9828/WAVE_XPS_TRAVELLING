@@ -15,7 +15,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import wave.spring.Constants.AdminConstantsI;
 import wave.spring.Constants.SystemConstants;
-import wave.spring.model.AdminLevel1SelfRegistration;
+import wave.spring.model.MerchantDetails;
 import wave.spring.model.EmployeeDetails;
 import wave.spring.model.Login;
 import wave.spring.services.AdminLogin;
@@ -31,6 +31,20 @@ public class LoginController {
 		mav.addObject("AdminLogin", new Login());
 		return mav;
 	}
+	
+	@RequestMapping(value = "/AdminWelcome", method = RequestMethod.GET)
+	public ModelAndView showAdminWelcome(HttpServletRequest request, HttpServletResponse response) {
+		ModelAndView mav = new ModelAndView("AdminWelcome");
+		mav.addObject("Welcome", "Welcome");
+		return mav;
+	}
+	
+	@RequestMapping(value = "/adminProfileDetails", method = RequestMethod.GET)
+	public ModelAndView showAdminProfile(HttpServletRequest request, HttpServletResponse response) {
+		ModelAndView mav = new ModelAndView("AdminProfileDetails");
+		mav.addObject("Welcome", "Welcome");
+		return mav;
+	}
 
 	// Added by Gaurav Srivastava
 	@RequestMapping(value = "/loginProcess", method = RequestMethod.POST)
@@ -43,10 +57,11 @@ public class LoginController {
 			AdminLoginI adminLogin = new AdminLogin();
 			map = adminLogin.adminLoginService(loginValues);
 			if ((map.get(SystemConstants.MSG)).equals(SystemConstants.TRUE)) {
-				mav = new ModelAndView("AdminWelcome");
+				mav = new ModelAndView("AdminWelcomeFrame");
 				mav.addObject("Welcome", "Welcome");
 				session.setAttribute(AdminConstantsI.EMPLOYEE_DETAILS, map.get(AdminConstantsI.EMPLOYEE_DETAILS));
 				session.setAttribute(AdminConstantsI.EMPLOYEE_MENU_LIST, map.get(AdminConstantsI.EMPLOYEE_MENU_LIST));
+				session.setAttribute(AdminConstantsI.EMPLOYEE_MENU_DOMAIN_LIST, map.get(AdminConstantsI.EMPLOYEE_MENU_DOMAIN_LIST));
 
 			} else if ((map.get(SystemConstants.MSG)).equals(AdminConstantsI.PASSWORD_RESET)) {
 				mav = new ModelAndView("AdminPasswordReset");

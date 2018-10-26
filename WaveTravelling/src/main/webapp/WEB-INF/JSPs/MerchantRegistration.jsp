@@ -30,11 +30,11 @@
 		<projectName><%out.print(SystemConstants.PROJECT_NAME_ONE+"\n"+SystemConstants.PROJECT_NAME_TWO); %></projectName><br>
 	</div>
 	<div align = "center">
-		<form:form id="adminLevel1Registration" modelAttribute="AdminLevel1RegistrationRequest" action="AdminLevel1SelfRegistrationRequest" 
-		method="post" onsubmit="return validateAdminLevel1SelfRegistartionForm()">
+		<form:form id="merchantRegistrationForm" modelAttribute="MerchantRegistration" action="merchantRegistrationProcess" 
+		method="POST" onsubmit="return validateMerchantRegistrationForm()">
 			<table class = "adminLoginTable">
 				<tr>
-					<th colspan="4" style="color:white;">Register here to be a part of Wave Xps travelling and engage your vechile with us.</th>
+					<th colspan="4" style="color:white;">Register here to be a part of Wave Xps Travelling and engage your vechile with us.</th>
 				</tr>
 				<tr>
 					<th colspan="4" align = "left"><errorMsg><span id="errorMsg"></span>
@@ -90,14 +90,12 @@
 				</tr>
 				<tr>
 					<td class = "formText"><spring:bind path="landMark"><%out.print(AdminConstantsI.LAND_MARK);%></spring:bind></td>
-					<td><form:textarea path="landMark" type="text"/></td>
+					<td><form:input class = "textArea" path="landMark" type="text"/></td>
 					<td class = "formText"><spring:bind path="emailId"><%out.print(AdminConstantsI.EMAIL_ID);%></spring:bind></td>
 					<td><form:input path="emailId" type="text"/></td>
 				</tr>
 				<tr>
-					<td class = "formText"><spring:bind path="captcha"><button type = "submit"
-					class = "captcha" disabled><%out.print(map.get(SystemConstants.CAPTCHA));%></button>
-					</spring:bind></td>
+					<td class = "formText"><button class = "captcha" disabled><%out.print(map.get(SystemConstants.CAPTCHA));%></button></td>
 					<td><input name="captcha" type="text" autocomplete="off"/></td>
 					<td><input type="hidden" value = "<%out.print(map.get(SystemConstants.CAPTCHA));%>" name = "keyCaptcha"/>
 				</tr>

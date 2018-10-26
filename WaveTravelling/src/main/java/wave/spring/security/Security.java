@@ -1,7 +1,16 @@
 package wave.spring.security;
 
 import java.util.HashMap;
+import java.util.Properties;
 import java.util.Random;
+
+import javax.mail.Message;
+import javax.mail.MessagingException;
+import javax.mail.PasswordAuthentication;
+import javax.mail.Session;
+import javax.mail.Transport;
+import javax.mail.internet.InternetAddress;
+import javax.mail.internet.MimeMessage;
 
 import wave.spring.Constants.SystemConstants;
 
@@ -96,6 +105,51 @@ public class Security implements SecurityI {
 			}
 		}
 		return message;
+	}
+	
+	public String sendMail(HashMap<String, String> map) {
+		String MSG = "";
+		try {
+			String to = map.get("to");
+			String from = map.get("from");
+			String subject = map.get("subject");
+			final String password = map.get("password");
+			String msg = map.get("msg");
+
+			Properties props = new Properties();
+			props.setProperty(SystemConstants.MAIL_TRANSPORT_PROTOCOL, "smtp");
+			props.setProperty(SystemConstants.MAIL_HOST, SystemConstants.SMPT_GMAIL_COM);    
+			props.put(SystemConstants.MAIL_SMTP_AUTH, SystemConstants.TRUE);         
+			props.put(SystemConstants.MAIL_SMTP_PORT, "465");			
+			props.put(SystemConstants.MAIL_DEBUG, SystemConstants.TRUE);       
+			props.put(SystemConstants.MAIL_SMTP_SOCKET_FACTORY_PORT, "465");    
+			props.put(SystemConstants.MAIL_SMTP_SOCKET_FACTORY_CLASS, SystemConstants.JAVAX_NET_SSL);     
+			props.put(SystemConstants.MAIL_SMTP_SOCKET_FACTORY_FALL_BACK, SystemConstants.FALSE);    
+			Session session = Session.getDefaultInstance(props, new javax.mail.Authenticator() {
+				protected PasswordAuthentication getPasswordAuthentication() {
+					return new PasswordAuthentication(from, password);
+				}
+			});
+
+			// session.setDebug(true);
+			Transport transport = session.getTransport();
+			InternetAddress addressFrom = new InternetAddress(from);
+
+			MimeMessage message = new MimeMessage(session);
+			message.setSender(addressFrom);
+			message.setSubject(subject);
+			message.setContent(msg, "text/plain");
+			message.addRecipient(Message.RecipientType.TO, new InternetAddress(to));
+
+			transport.connect();
+			Transport.send(message);
+			transport.close();
+			MSG = SystemConstants.ACTIVE;
+		} catch (MessagingException mex) {
+			mex.printStackTrace();
+			MSG = SystemConstants.INACTIVE;
+		}
+		return MSG;
 	}
 
 }

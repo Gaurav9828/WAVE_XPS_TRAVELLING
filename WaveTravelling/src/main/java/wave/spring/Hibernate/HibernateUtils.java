@@ -14,6 +14,7 @@ import org.hibernate.cfg.Environment;
 import wave.spring.Constants.SystemConstants;
 import wave.spring.model.Employee1MenuList;
 import wave.spring.model.EmployeeDetails;
+import wave.spring.model.MerchantDetails;
 
 
 public class HibernateUtils {
@@ -40,7 +41,8 @@ public class HibernateUtils {
           registry = registryBuilder.build();
           
           //addition of bean classes to Hibernate for data base queries 
-          MetadataSources sources = new MetadataSources(registry).addAnnotatedClass(EmployeeDetails.class).addAnnotatedClass(Employee1MenuList.class);
+          MetadataSources sources = new MetadataSources(registry).addAnnotatedClass(EmployeeDetails.class).addAnnotatedClass(Employee1MenuList.class)
+        		  .addAnnotatedClass(MerchantDetails.class);
           Metadata metadata = sources.getMetadataBuilder().build();
           sessionFactory = metadata.getSessionFactoryBuilder().build();
       } catch (Exception e) {

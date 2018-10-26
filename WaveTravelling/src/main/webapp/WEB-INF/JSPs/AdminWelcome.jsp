@@ -20,7 +20,7 @@
 <link rel="stylesheet" type="text/css"
 	href="${pageContext.request.contextPath}/resources/themes/CSS/Style_Sheet_Two.css">
 </head>
-<body>
+<body style="background-color: #f5f5f5;">
 	<%
 	response.setHeader("Cache-Control", "no-cache,no-store,must-revalidate");
 	response.setHeader("Pragma","no-cache");
@@ -35,27 +35,51 @@
 		 bal = 0,
 		 N = 0;
 	List<List<String>> menuList = new  ArrayList(); 
+	List<String> menuDomain = new  ArrayList();
 	try{
 		employeeDetails =  (EmployeeDetails)session.getAttribute(AdminConstantsI.EMPLOYEE_DETAILS); 
 		menuList = (List<List<String>>)session.getAttribute(AdminConstantsI.EMPLOYEE_MENU_LIST);
-		out.print(employeeDetails.getName());
+		menuDomain = (List<String>)session.getAttribute(AdminConstantsI.EMPLOYEE_MENU_DOMAIN_LIST);
 		%>
-		
-		<div class="dropdown">
-		<button class="dropbtn">Dropdown</button>
-	  	<div class="dropdown-content">
-	    	<%for(List<String> sList : menuList){%>
-	    		<form id="menuForm" modelAttribute="AdminWelcome" action="<%out.print(sList.get(1)); %>" method="post">
-	    			<input type = "submit" value = "<%out.print(sList.get(0)); %>" />
-	    		</form><%
-	    		}
+		<div class = "sidenav">
+		<%for(String menuDomainValue : menuDomain){%>
+			<button class="dropdown-btn"><%out.print(menuDomainValue); %><i class="fa fa-caret-down"></i></button>
+		  	<div class="dropdown-container">
+		    	<%for(List<String> sList : menuList){
+		    	 	if(sList.get(2).equals(menuDomainValue)){%>
+		    		<form id="menuForm" modelAttribute="AdminWelcome" action="<%out.print(sList.get(1)); %>" method="post" target = "workFrame">
+		    			<input class = "dropbtnLevel2" type = "submit" value = "<%out.print(sList.get(0)); %>" />
+		    		</form><%
+		    		}
+		  		}
+		    	%>
+		    	</div>
+<%
+			}
+		}catch(Exception e){
+			e.printStackTrace();
+			return;
+		}%>	
+		<form id="menuForm" modelAttribute="AdminWelcome" action="logout" method="post" target = "loginPage">
+		    	<input class = "logoutButton" type = "submit" value = "Logout" />
+		</form>
+	</div>	
+	<script>
+/* Loop through all dropdown buttons to toggle between hiding and showing its dropdown content - This allows the user to have multiple dropdowns without any conflict */
+var dropdown = document.getElementsByClassName("dropdown-btn");
+var i;
 
-	}catch(Exception e){
-		e.printStackTrace();
-		return;
-	}
-    	%>	
-  	</div>
-</div>
+for (i = 0; i < dropdown.length; i++) {
+  dropdown[i].addEventListener("click", function() {
+    this.classList.toggle("active");
+    var dropdownContent = this.nextElementSibling;
+    if (dropdownContent.style.display === "block") {
+      dropdownContent.style.display = "none";
+    } else {
+      dropdownContent.style.display = "block";
+    }
+  });
+}
+</script>
 </body>
 </html>

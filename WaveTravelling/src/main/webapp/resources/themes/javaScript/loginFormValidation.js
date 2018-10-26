@@ -28,10 +28,7 @@ function validateAdminLoginForm()
     	document.getElementById("errorMsg").innerHTML="Invalid captcha entered ..";
         return false;
     }
-    else
-    {
         return true;
-    }
 }
 
 function adminForceMemorableWordSet()
@@ -112,20 +109,20 @@ function validateAdminMemorableWordPasswordResetForm()
 }
 
 
-function validateAdminLevel1SelfRegistartionForm() {
+function validateMerchantRegistrationForm() {
 	var numExp = /^[0-9]+$/;
 	var mailformat = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
-	var firstName = document.forms["adminLevel1Registration"]["firstName"].value;
+	var firstName = document.forms["merchantRegistrationForm"]["firstName"].value;
 	if (firstName == null || firstName == "") {
 		document.getElementById("errorMsg").innerHTML = "Please enter your first name ..";
 		return false;
 	}
-	var lastName = document.forms["adminLevel1Registration"]["lastName"].value;
+	var lastName = document.forms["merchantRegistrationForm"]["lastName"].value;
 	if (lastName == null || lastName == "") {
 		document.getElementById("errorMsg").innerHTML = "Please enter your last name ..";
 		return false;
 	}
-	var mobileNumber = document.forms["adminLevel1Registration"]["mobileNumber"].value;
+	var mobileNumber = document.forms["merchantRegistrationForm"]["mobileNumber"].value;
 	if (mobileNumber == null || mobileNumber == "") {
 		document.getElementById("errorMsg").innerHTML = "Please enter your mobile number ..";
 		return false;
@@ -138,12 +135,12 @@ function validateAdminLevel1SelfRegistartionForm() {
 		document.getElementById("errorMsg").innerHTML = "Mobile number should be of 10 digit ..";
 		return false;
 	}
-	var city = document.forms["adminLevel1Registration"]["city"].value;
+	var city = document.forms["merchantRegistrationForm"]["city"].value;
 	if (city == null || city == "") {
 		document.getElementById("errorMsg").innerHTML = "Please enter your city name ..";
 		return false;
 	}
-	var pinCode = document.forms["adminLevel1Registration"]["pinCode"].value;
+	var pinCode = document.forms["merchantRegistrationForm"]["pinCode"].value;
 	if (pinCode == null || pinCode == "") {
 		document.getElementById("errorMsg").innerHTML = "Please enter your pin code ..";
 		return false;
@@ -152,22 +149,22 @@ function validateAdminLevel1SelfRegistartionForm() {
 		document.getElementById("errorMsg").innerHTML = "PIN code should be a numeric value ..";
 		return false;
 	}
-	var identityType = document.forms["adminLevel1Registration"]["identityType"].value;
+	var identityType = document.forms["merchantRegistrationForm"]["identityType"].value;
 	if (identityType == null || identityType == "") {
 		document.getElementById("errorMsg").innerHTML = "Please select your identity type ..";
 		return false;
 	}
-	var identityNumber = document.forms["adminLevel1Registration"]["identityNumber"].value;
+	var identityNumber = document.forms["merchantRegistrationForm"]["identityNumber"].value;
 	if (identityNumber == null || identityNumber == "") {
 		document.getElementById("errorMsg").innerHTML = "Please enter your identity number ..";
 		return false;
 	}
-	var landMark = document.forms["adminLevel1Registration"]["landMark"].value;
+	var landMark = document.forms["merchantRegistrationForm"]["landMark"].value;
 	if (landMark == null || landMark == "") {
 		document.getElementById("errorMsg").innerHTML = "Please enter your land mark ..";
 		return false;
 	}
-	var emailId = document.forms["adminLevel1Registration"]["emailId"].value;
+	var emailId = document.forms["merchantRegistrationForm"]["emailId"].value;
 	if (emailId == null || emailId == "") {
 		document.getElementById("errorMsg").innerHTML = "Please enter your email id ..";
 		return false;
@@ -176,13 +173,13 @@ function validateAdminLevel1SelfRegistartionForm() {
 		document.getElementById("errorMsg").innerHTML = "Please enter a valid email id ..";
 		return false;
 	}
-	var capp=document.forms["adminLevel1Registration"]["captcha"].value;
+	var capp=document.forms["merchantRegistrationForm"]["captcha"].value;
     if(capp==null || capp=="")
     {
     	document.getElementById("errorMsg").innerHTML="Please enter captcha ..";
         return false;
     }
-    var key=document.forms["adminLevel1Registration"]["keyCaptcha"].value;
+    var key=document.forms["merchantRegistrationForm"]["keyCaptcha"].value;
     if(key!=capp){
     	setTimeout(function(){
     		   window.location.reload(1);
@@ -190,9 +187,8 @@ function validateAdminLevel1SelfRegistartionForm() {
     	document.getElementById("errorMsg").innerHTML="Invalid captcha entered ..";
         return false;
     }
-    else {
-		return true;
-	}
+ 		return true;
+
 }
 
 

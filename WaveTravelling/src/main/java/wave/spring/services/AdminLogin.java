@@ -4,15 +4,6 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Properties;
-
-import javax.mail.Message;
-import javax.mail.MessagingException;
-import javax.mail.PasswordAuthentication;
-import javax.mail.Session;
-import javax.mail.Transport;
-import javax.mail.internet.InternetAddress;
-import javax.mail.internet.MimeMessage;
 
 import wave.spring.Constants.AdminConstantsI;
 import wave.spring.Constants.SystemConstants;
@@ -26,6 +17,8 @@ import wave.spring.security.SecurityI;
 
 public class AdminLogin implements AdminLoginI {
 	// added by Gaurav Srivastava
+	SecurityI security = new Security();
+
 	public HashMap adminLoginService(Login loginValues) {
 		HashMap map = new HashMap();
 		try {
@@ -62,7 +55,6 @@ public class AdminLogin implements AdminLoginI {
 				}
 			}
 
-			SecurityI security = new Security();
 			String password = security.valueEncrptyer(loginValues.getAuthValue2());
 			if (!password.equals(employeeDetails.getPassword())) {
 				dao.setInvalidPasswordAttempt(employeeDetails.getUserId(),
@@ -88,11 +80,20 @@ public class AdminLogin implements AdminLoginI {
 			// generation menus as per admin level
 			List<Employee1MenuList> menuList = dao.getEmployeeMenuList(employeeDetails.getAdminLevel());
 			List<List> employeeMenu = new ArrayList();
+			List<String> menuDomain = new ArrayList();
 			for (Employee1MenuList list : menuList) {
 				List<String> l = new ArrayList();
 				l.add(list.getMenuName());
 				l.add(list.getMenuAction());
+				l.add(list.getMenuDomain());
 				employeeMenu.add(l);
+				if(menuDomain.isEmpty()) {
+					menuDomain.add(list.getMenuDomain());
+				}else {
+					if(!menuDomain.contains(list.getMenuDomain())){
+						menuDomain.add(list.getMenuDomain());
+					}
+				}
 			}
 
 			LocalDate date = LocalDate.now();
@@ -103,6 +104,7 @@ public class AdminLogin implements AdminLoginI {
 			message = SystemConstants.TRUE;
 			map.put(AdminConstantsI.EMPLOYEE_DETAILS, employeeDetails);
 			map.put(AdminConstantsI.EMPLOYEE_MENU_LIST, employeeMenu);
+			map.put(AdminConstantsI.EMPLOYEE_MENU_DOMAIN_LIST, menuDomain);
 			map.put(SystemConstants.MSG, message);
 
 		} catch (Exception e) {
@@ -121,7 +123,6 @@ public class AdminLogin implements AdminLoginI {
 	// added by Gaurav Srivastava
 	public String resetAdminPassword(int employeeId, String newPassword) {
 		AdminDaoI dao = new AdminDao();
-		SecurityI security = new Security();
 		String password = security.valueEncrptyer(newPassword);
 		String message = dao.setAdminPassword(employeeId, password);
 		if (message.equals("true")) {
@@ -140,7 +141,6 @@ public class AdminLogin implements AdminLoginI {
 		if (employeeDetails == null) {
 			message = SystemConstants.FALSE;
 		}
-		SecurityI security = new Security();
 		String inputMemorableWord = security.valueEncrptyer(resetValues.getAuthValue2());
 		if (employeeDetails.getMemorableWord().equals(inputMemorableWord)) {
 			HashMap<String, String> map = new HashMap();
@@ -155,7 +155,7 @@ public class AdminLogin implements AdminLoginI {
 			
 			map.put("msg", messageToBeSent);
 			map.put("password", SystemConstants.SENDER_PASSWORD);
-			String msg = sendTemporaryPasswordMail(map);
+			String msg = security.sendMail(map);
 			if (msg.equals(SystemConstants.ACTIVE)) {
 				employeeDetails.setLastLoginDate(null);
 				employeeDetails.setPassword(temporartPassword);
@@ -171,54 +171,9 @@ public class AdminLogin implements AdminLoginI {
 		return message;
 	}
 
-	public static String sendTemporaryPasswordMail(HashMap<String, String> map) {
-		String MSG = "";
-		try {
-			String to = map.get("to");
-			String from = map.get("from");
-			String subject = map.get("subject");
-			final String password = map.get("password");
-			String msg = map.get("msg");
-
-			Properties props = new Properties();
-			props.setProperty(SystemConstants.MAIL_TRANSPORT_PROTOCOL, "smtp");
-			props.setProperty(SystemConstants.MAIL_HOST, SystemConstants.SMPT_GMAIL_COM);    
-			props.put(SystemConstants.MAIL_SMTP_AUTH, SystemConstants.TRUE);         
-			props.put(SystemConstants.MAIL_SMTP_PORT, "465");			
-			props.put(SystemConstants.MAIL_DEBUG, SystemConstants.TRUE);       
-			props.put(SystemConstants.MAIL_SMTP_SOCKET_FACTORY_PORT, "465");    
-			props.put(SystemConstants.MAIL_SMTP_SOCKET_FACTORY_CLASS, SystemConstants.JAVAX_NET_SSL);     
-			props.put(SystemConstants.MAIL_SMTP_SOCKET_FACTORY_FALL_BACK, SystemConstants.FALSE);    
-			Session session = Session.getDefaultInstance(props, new javax.mail.Authenticator() {
-				protected PasswordAuthentication getPasswordAuthentication() {
-					return new PasswordAuthentication(from, password);
-				}
-			});
-
-			// session.setDebug(true);
-			Transport transport = session.getTransport();
-			InternetAddress addressFrom = new InternetAddress(from);
-
-			MimeMessage message = new MimeMessage(session);
-			message.setSender(addressFrom);
-			message.setSubject(subject);
-			message.setContent(msg, "text/plain");
-			message.addRecipient(Message.RecipientType.TO, new InternetAddress(to));
-
-			transport.connect();
-			Transport.send(message);
-			transport.close();
-			MSG = SystemConstants.ACTIVE;
-		} catch (MessagingException mex) {
-			mex.printStackTrace();
-			MSG = SystemConstants.INACTIVE;
-		}
-		return MSG;
-	}
 	
 	public String setSecretMemorableWord(EmployeeDetails employeeDetails, String secretWord) {
 		String message = "";
-		SecurityI security = new Security();
 		employeeDetails.setMemorableWord(security.valueEncrptyer(secretWord));
 		employeeDetails.setPassword(security.valueEncrptyer(employeeDetails.getPassword()));
 		try {

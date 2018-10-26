@@ -19,7 +19,7 @@ public interface SystemConstants {
 	//mail generation		
 			TEMPORARY_PASSWORD_MAIL_SENT = "We have sent you a temporary password to your registered mail id..",
 			ADMIN_SENDER_MAIL_ID = "gauravsri9828@gmail.com",
-			SENDER_PASSWORD = "XXXXXXXXX",
+			SENDER_PASSWORD = "7309831726",
 			
 			MAIL_TRANSPORT_PROTOCOL = "mail.transport.protocol",
 			MAIL_HOST = "mail.host",
@@ -36,6 +36,14 @@ public interface SystemConstants {
 			FIRST_MESSAGE = "  is your temporary password. Please reset your password withing 1 hour.",
 			SECOND_MESSAGE = "Do not share your sensitive data like password/memorable word with anyone. Thank you we are glad to help you.",
 			THIRD_MESSAGE = "Wave Xps password reset functionality through secret memorable word as per the user request.",
+			
+	//MerchantRegistration
+			MERCHANT_REGISTRATION_APPOINTEMENT = "Wave Xps Registration Appoointement",
+			MERCHANT_REGISTRATION_APPOINTEMENT_MSG_ONE = "  We are glad to inform that your application for Wave Xps Travelling Merchant has been "
+					+ "successfully accepted.\n  You may visit Wave Xps Office Kushinagar on any Date .",
+			MERCHANT_REGISTRATION_APPOINTEMENT_MSG_TWO = "\n Please carry all important details "
+							+ "of you and your vechile such as Adhar card, Vechile Paper, Insurence Paper etc.\n\n\n\n Thank you we hope that "
+							+ "sooner you will be a part of Wave Xps Travelling.",
 	//added by Gaurav Srivastava
 	//project credentials
 			DEVELOPERS = "Gaurav Srivastava, Prashansa Saxena and Ayush Pandey",
@@ -51,6 +59,10 @@ public interface SystemConstants {
 			
 			LOGIN_ERROR = "There was a login error. Please try again after some time.",
 			ACTIVE = "Y",
-			INACTIVE = "N";
+			INACTIVE = "N",
+			ERROR = "error",
+			
+			EMPTY_LIST = "List is empty",
+			LIST = "list";
 			
 }

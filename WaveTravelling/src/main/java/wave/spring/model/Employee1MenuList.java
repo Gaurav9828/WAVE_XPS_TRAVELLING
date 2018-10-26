@@ -27,16 +27,8 @@ public class Employee1MenuList {
 	@Column(name = "MENU_VISIBILITY")
 	private String menuVisibility;
 	
-	public Employee1MenuList() {}
-
-	public Employee1MenuList(Integer menuId, String menuName, String menuAction, String menuAdminLevel,
-			String menuVisibility) {
-		this.menuId = menuId;
-		this.menuName = menuName;
-		this.menuAction = menuAction;
-		this.menuAdminLevel = menuAdminLevel;
-		this.menuVisibility = menuVisibility;
-	}
+	@Column(name = "MENU_DOMAIN")
+	private String menuDomain;
 
 	public Integer getMenuId() {
 		return menuId;
@@ -77,4 +69,13 @@ public class Employee1MenuList {
 	public void setMenuVisibility(String menuVisibility) {
 		this.menuVisibility = menuVisibility;
 	}
+
+	public String getMenuDomain() {
+		return menuDomain;
+	}
+
+	public void setMenuDomain(String menuDomain) {
+		this.menuDomain = menuDomain;
+	}
+	
 }

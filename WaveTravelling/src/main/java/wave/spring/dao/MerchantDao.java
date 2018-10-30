@@ -1,9 +1,12 @@
 package wave.spring.dao;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
+import javax.persistence.Query;
 import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.CriteriaDelete;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
 
@@ -84,11 +87,11 @@ public class MerchantDao implements MerchantDaoI {
 			Root<MerchantDetails> applicantList = criteriaQuery.from(MerchantDetails.class);
 			criteriaQuery.select(applicantList);
 			criteriaQuery.where(builder.equal(applicantList.get("status"), AdminConstantsI.ALREADY_REGISTERED));
-			criteriaQuery.orderBy(builder.desc(applicantList.get("submissionDate")));
+			criteriaQuery.orderBy(builder.asc(applicantList.get("submissionDate")));
 			list = session.createQuery(criteriaQuery).getResultList();
 			session.close();
 			if (list.isEmpty()) {
-				return null;
+				return list;
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -103,4 +106,85 @@ public class MerchantDao implements MerchantDaoI {
 		}
 		return list;
 	}
+
+	public String rejectApplication(int merchantId) {
+		String message = "";
+		 Session session = null;
+	      Transaction transaction = null;
+	      try {
+	         session = HibernateUtils.getSessionFactory().openSession();
+	         transaction = session.getTransaction();
+	         transaction.begin();
+
+	         //Delete a transient  object
+	         MerchantDetails merchantDetails=new MerchantDetails();
+	         merchantDetails.setMarchantId(merchantId);
+	         session.delete(merchantDetails);	         
+	         transaction.commit();
+	         message = AdminConstantsI.REJECTION_SUCCESSFUL;
+	      } catch (Exception e) {
+	         if (transaction != null) {
+	            transaction.rollback();
+	         }
+	         e.printStackTrace();
+	         message = SystemConstants.ERROR;
+	      } finally {
+	         if (session != null) {
+	            session.close();
+	         }
+	      }
+	      HibernateUtils.shutdown();
+		return message;
+	}
+
+	
+	public String insertMerchantAdmin(EmployeeDetails employeeDetails) {
+		String message = "";
+		Session session = null;
+		Transaction transaction = null;
+		try {
+			session = HibernateUtils.getSessionFactory().openSession();
+			transaction = session.beginTransaction();
+			session.save(employeeDetails);
+			transaction.commit();
+			session.close();
+			message = SystemConstants.ACTIVE;
+		} catch (Exception e) {
+			transaction.rollback();
+			e.printStackTrace();
+			message = SystemConstants.INACTIVE;
+		} finally {
+			try {
+				HibernateUtils.getSessionFactory().close();
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+			session.close();
+		}
+		return message;
+	}
+	
+	public void updateMerchant(MerchantDetails merchantDetails) {
+		Session session = null;
+		Transaction transaction = null;
+		try {
+			session = HibernateUtils.getSessionFactory().openSession();
+			transaction = session.beginTransaction();
+			session.update(merchantDetails);
+			transaction.commit();
+			session.close();
+		} catch (Exception e) {
+			transaction.rollback();
+			e.printStackTrace();
+		} finally {
+			try {
+				HibernateUtils.getSessionFactory().close();
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+			session.close();
+		}
+		return;
+	}
+
 }

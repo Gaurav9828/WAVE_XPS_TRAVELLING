@@ -45,16 +45,19 @@ public class EmployeeDetails {
 	@Column(name = "EMAIL_ID")
 	private String emailId;
 	
-	@Column(name = "LAST_LOGIN_DATE")
-	private LocalDate lastLoginDate;
+	@Column(name = "LAST_LOGIN")
+	private String lastLogin;
 	
 	@Column(name = "INVALID_PASSWORD_ATTEMPTS")
 	private Integer invalidPasswordAttempts;
 	
+	@Column(name = "ADDED_BY_EMP_ID")
+	private String addedByEmpId;
+	
 	public EmployeeDetails(){}
 
 	public EmployeeDetails(Integer userId, String employeeId, String mobileNumber, String status, String password,String memorableWord,
-			String adminLevel, String name, String loginStatus, String emailId, LocalDate lastLoginDate,Integer invalidPasswordAttempts) {
+			String adminLevel, String name, String loginStatus, String emailId, String lastLogin,Integer invalidPasswordAttempts, String addedByEmpId) {
 		this.userId = userId;
 		this.employeeId = employeeId;
 		this.mobileNumber = mobileNumber;
@@ -65,7 +68,7 @@ public class EmployeeDetails {
 		this.name = name;
 		this.loginStatus = loginStatus;
 		this.emailId = emailId;
-		this.lastLoginDate = lastLoginDate;
+		this.lastLogin = lastLogin;
 		this.invalidPasswordAttempts = invalidPasswordAttempts;
 	}
 
@@ -149,20 +152,28 @@ public class EmployeeDetails {
 		this.emailId = emailId;
 	}
 
-	public LocalDate getLastLoginDate() {
-		return lastLoginDate;
-	}
-
-	public void setLastLoginDate(LocalDate lastLoginDate) {
-		this.lastLoginDate = lastLoginDate;
-	}
-
 	public Integer getInvalidPasswordAttempts() {
 		return invalidPasswordAttempts;
 	}
 
 	public void setInvalidPasswordAttempts(Integer invalidPasswordAttempts) {
 		this.invalidPasswordAttempts = invalidPasswordAttempts;
+	}
+
+	public String getLastLogin() {
+		return lastLogin;
+	}
+
+	public void setLastLogin(String lastLogin) {
+		this.lastLogin = lastLogin;
+	}
+
+	public String getAddedByEmpId() {
+		return addedByEmpId;
+	}
+
+	public void setAddedByEmpId(String addedByEmpId) {
+		this.addedByEmpId = addedByEmpId;
 	}
 
 }

@@ -19,7 +19,7 @@ public interface SystemConstants {
 	//mail generation		
 			TEMPORARY_PASSWORD_MAIL_SENT = "We have sent you a temporary password to your registered mail id..",
 			ADMIN_SENDER_MAIL_ID = "gauravsri9828@gmail.com",
-			SENDER_PASSWORD = "7309831726",
+			SENDER_PASSWORD = "xxxxxxxxxx",
 			
 			MAIL_TRANSPORT_PROTOCOL = "mail.transport.protocol",
 			MAIL_HOST = "mail.host",
@@ -39,11 +39,21 @@ public interface SystemConstants {
 			
 	//MerchantRegistration
 			MERCHANT_REGISTRATION_APPOINTEMENT = "Wave Xps Registration Appoointement",
-			MERCHANT_REGISTRATION_APPOINTEMENT_MSG_ONE = "  We are glad to inform that your application for Wave Xps Travelling Merchant has been "
-					+ "successfully accepted.\n  You may visit Wave Xps Office Kushinagar on any Date .",
-			MERCHANT_REGISTRATION_APPOINTEMENT_MSG_TWO = "\n Please carry all important details "
-							+ "of you and your vechile such as Adhar card, Vechile Paper, Insurence Paper etc.\n\n\n\n Thank you we hope that "
+			MERCHANT_REGISTRATION_APPOINTEMENT_MSG_ONE = "\tWe are glad to inform that your application for Wave Xps Travelling Merchant has been "
+					+ "successfully accepted.\n\tYou may visit Wave Xps Office Kushinagar on any Date .",
+			MERCHANT_REGISTRATION_APPOINTEMENT_MSG_TWO = "\n\tPlease carry all important details "
+							+ "of you and your vechile such as Adhar card.\n\n\n\n\tThank you we hope that "
 							+ "sooner you will be a part of Wave Xps Travelling.",
+							
+			MERCHANT_REGISTRATION_CANCELLED = "Wave Xps Registration Cancelled",
+			MERCHANT_REGISTRATION_SUCCESSFUL = "Wave Xps Registration successful",
+		    REGISTRATION_APPLICATION_CANCELLED_MSG = "\tSorry due to some leagal issues with your documents we are unable to accepet your Merchant application"
+		    		+ "in Wave Xps Travelling\n\n\n\n\tWave Xps Travelling merchant application cancellition service.",
+		    REGISTRATION_APPLICATION_SUCCESS_MSG = "\tCongratuation, Now you are a Merchant in Wave Xps Travelling.\n\tYou can login as a Merchant admin in "
+		    		+ "Wave Xps by clicking on the following link.\n",
+		    MERCHANT_LOGIN_URL = "http://localhost:9090/WaveTravelling/adminLogin",		
+		   
+							
 	//added by Gaurav Srivastava
 	//project credentials
 			DEVELOPERS = "Gaurav Srivastava, Prashansa Saxena and Ayush Pandey",
@@ -55,14 +65,17 @@ public interface SystemConstants {
 			USER_NAME = "MYDATABASE",
 			PASSWORD = "GAV9828GaV",
 			HBM2DDL_AUTO = "update",
-			C3P0_TIMEOUT = "1000",
+			C3P0_TIMEOUT = "60000",
 			
 			LOGIN_ERROR = "There was a login error. Please try again after some time.",
+			SOMETHING_ERROR = "Something wrong occurred please try after some time",
 			ACTIVE = "Y",
 			INACTIVE = "N",
 			ERROR = "error",
+			MAIL_ERROR = "mailError",
 			
 			EMPTY_LIST = "List is empty",
-			LIST = "list";
+			LIST = "list",
+			MERCHANT = "merchant";
 			
 }

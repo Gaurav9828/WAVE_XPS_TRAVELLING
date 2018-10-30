@@ -1,6 +1,7 @@
 package wave.spring.services;
 
 import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -46,7 +47,7 @@ public class AdminLogin implements AdminLoginI {
 				return map;
 			}
 
-			if (employeeDetails.getLastLoginDate() == null) { // for first time login
+			if (employeeDetails.getLastLogin() == null) { // for first time login
 				if ((loginValues.getAuthValue2()).equals(employeeDetails.getPassword())) {
 					message = AdminConstantsI.PASSWORD_RESET;
 					map.put(SystemConstants.MSG, message);
@@ -97,9 +98,10 @@ public class AdminLogin implements AdminLoginI {
 			}
 
 			LocalDate date = LocalDate.now();
+			LocalTime time = LocalTime.now();
 			employeeDetails.setInvalidPasswordAttempts(0);
 			employeeDetails.setLoginStatus(SystemConstants.ACTIVE);
-			employeeDetails.setLastLoginDate(date);
+			employeeDetails.setLastLogin(time.toString()+" "+date.toString());
 			dao.updateEmployeeDetails(employeeDetails); // set user Logged in
 			message = SystemConstants.TRUE;
 			map.put(AdminConstantsI.EMPLOYEE_DETAILS, employeeDetails);
@@ -157,7 +159,7 @@ public class AdminLogin implements AdminLoginI {
 			map.put("password", SystemConstants.SENDER_PASSWORD);
 			String msg = security.sendMail(map);
 			if (msg.equals(SystemConstants.ACTIVE)) {
-				employeeDetails.setLastLoginDate(null);
+				employeeDetails.setLastLogin(null);
 				employeeDetails.setPassword(temporartPassword);
 
 				dao.updateEmployeeDetails(employeeDetails);

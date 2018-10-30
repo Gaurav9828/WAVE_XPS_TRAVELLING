@@ -1,0 +1,67 @@
+@charset "ISO-8859-1";
+
+body {
+	background-image: url('../../Images/Wave_Page_Img.png');
+	background-repeat: no-repeat;
+}
+
+.adminLoginTable {
+	border-radius: 25px;
+	background-color: rgba(1, 1, 1, 0.7);
+	padding: 25px;
+	width: 80%;
+	height: 100%;
+}
+
+tr{
+	border-radius: 25px;
+	background-color: rgba(1, 1, 1, 0.7);
+	height: 35px;
+}
+
+td{
+	color: white;
+	font-size: 17px;
+	font-weight: bold;
+}
+
+input, select {
+	border-redius: 25px;
+	height: 25px;
+	font-size: 17px;
+	width: 205px;
+}
+
+errorMsg {
+	color: red;
+	fonr-size: 10px;
+}
+
+seccessMsg {
+	color: #00FF00;
+	fonr-size: 10px;
+}
+
+pageName {
+	color: white;
+	font-size: 30px;
+	font-weight: bold;
+}
+
+.formText {
+	color: white;
+	font-size: 17px;
+	font-weight: bold;
+}
+
+.submitButton {
+	border-radius: 4px;
+	background-color: White;
+	border: none;
+	color: black;
+	font-size: 18px;
+	width: 125px;
+	height: 25px;
+	cursor: pointer;
+	margin: 5px;
+}

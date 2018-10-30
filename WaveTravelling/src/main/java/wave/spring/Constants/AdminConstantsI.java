@@ -55,7 +55,11 @@ public interface AdminConstantsI {
 		    BLACK_LISTED_REQUEST = "BL",
 		    BLACK_LISTED_REQUEST_MSG = "Sorry ! You are black listed for registration request due to some company policies ..",
 		    REGISTRAION_REQUEST_SUCCESSFUL = "Your registration request has been accepted. We have sent you a email for further informations ..",
-		    SOME_THING_WRONG_REGISTRATION = "Sorry ! Registration failed due to some error. Please try after some time ..";
+		    SOME_THING_WRONG_REGISTRATION = "Sorry ! Registration failed due to some error. Please try after some time ..",
+		    ERROR_MAIL_SENDING = "\nError occured during mail sending. We will send your mail sooner.",
+		    REJECTION_SUCCESSFUL = "Merchant application successfully rejected",
+		    MERCHANT_ADDED = "Merchant added successfully.",    
 			
+		    LIST_EMPTY = "Empty list";
 		int MAX_INVALID_PASSWORD_ATTEMPTS = 4;
 }

@@ -22,44 +22,25 @@
 </head>
 <body>
 <div align = "center">
-	<%List<MerchantDetails> applicantList = null;
-	try{
-		applicantList = (List<MerchantDetails>) session.getAttribute(SystemConstants.LIST);
-	}catch(NullPointerException e){
-	}%>
+	<%MerchantDetails applicantDetail = (MerchantDetails) request.getAttribute(SystemConstants.MERCHANT);%>
 	<table class = "adminLoginTable">
-				<tr style="background-color:transparent;">
-					<th colspan="4" align = "left" ><errorMsg><span id="errorMsg"></span>
-							${message}
-						</errorMsg>
-						<seccessMsg>${successMessage}</seccessMsg>
-					</th>
-				</tr>
 		<tr align = "center">
 			<th class = "formText">Name</th>
 			<th class = "formText">Submission Date</th>
-			<th class = "formText">View</th>
-			<th class = "formText">Reject</th>
+			<th class = "formText">Confirm</th>
+			<th class = "formText">Back</th>
 		</tr>
-			<%
-			if(applicantList == null){%>
+		<form:form id="applilcationForm" modelAttribute="AdminMerchantApplications"  method="post">
 			
-		   <%}else{
-		   	for(MerchantDetails mDetails : applicantList){
-			
-			%>
-		<form:form id="applilcationForm" modelAttribute="AdminMerchantApplications"  method="post" >
 			<tr align = "center">
-			<%request.setAttribute(SystemConstants.LIST, applicantList);%>		
-			<input name="merchantId" type="hidden" value = "<%out.print(mDetails.getMarchantId());%>"/>		
-			<td><%out.print(mDetails.getFirstName()+" "+mDetails.getLastName()); %></td>
-			<td><%out.print(mDetails.getSubmissionDate());  %></td>
-			<td><input type = "submit" class = "submitButton" value="View" formaction = "merchantApplicationsView"/></td>
-			<td><input type = "submit" class = "submitButton" value="Reject" formaction = "confirmRejectApplication"/></td>
+			<input type = "hidden" name = "merchantId" value = "<%out.print(applicantDetail.getMarchantId());%>"/>
+			<input name="mailId" type="hidden" value = "<%out.print(applicantDetail.getEmailId());%>"/>
+			<td class = "formText"><%out.print(applicantDetail.getFirstName()+" "+applicantDetail.getLastName()); %></td>
+			<td class = "formText"><%out.print(applicantDetail.getSubmissionDate());%></td>
+			<td class = "formText"><input type = "submit" class = "submitButton" value="Confirm" formaction = "rejectMerchantApplications"/></td>
+			<td class = "formText"><input type = "submit" class = "submitButton" value="Back" formaction = "backMerchantApplications"/></td>
 			</tr>
-		</form:form>	
-		   	<%} 
-         }%>
+		</form:form>
 	</table>
 </div>	
 </body>

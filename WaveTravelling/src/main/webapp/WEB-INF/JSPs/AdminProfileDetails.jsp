@@ -18,7 +18,7 @@
 			<td align = "left"><t style="color:white;">WAVE Xps Travelling</t></td>
 			<td align = "right"><t style="color:white;"><%out.print(employeeDetails.getName()); %>&nbsp&nbsp
 			MSISDN : <%out.print(employeeDetails.getMobileNumber()); %>&nbsp&nbsp
-			Last Login : <%out.print(employeeDetails.getLastLoginDate()); %></t></td>
+			Last Login : <%out.print(employeeDetails.getLastLogin()); %></t></td>
 		</tr>
 	</table>
 </body>

@@ -45,7 +45,13 @@ public class LoginController {
 		mav.addObject("Welcome", "Welcome");
 		return mav;
 	}
-
+		
+	@RequestMapping(value = "/welcomeAdminPage", method = RequestMethod.GET)
+	public ModelAndView welcomeAdminPage(HttpServletRequest request, HttpServletResponse response) {
+		ModelAndView mav = new ModelAndView("WelcomeAdminPage");
+		return mav;
+	}
+	
 	// Added by Gaurav Srivastava
 	@RequestMapping(value = "/loginProcess", method = RequestMethod.POST)
 	public ModelAndView loginProcess(HttpServletRequest request, HttpServletResponse response,

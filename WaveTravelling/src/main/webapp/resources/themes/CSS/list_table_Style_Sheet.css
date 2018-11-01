@@ -1,4 +1,9 @@
 @charset "ISO-8859-1";
+.fa {
+    margin-left: -12px;
+    margin-right: 8px;
+    color : red;
+}
 
 body {
 	background-image: url('../../Images/Wave_Page_Img.png');

@@ -48,7 +48,7 @@
 		   	for(MerchantDetails mDetails : applicantList){
 			
 			%>
-		<form:form id="applilcationForm" modelAttribute="AdminMerchantApplications"  method="post" >
+		<form:form id="applilcationForm" modelAttribute="AdminMerchantApplications"  method="post">
 			<tr align = "center">
 			<%request.setAttribute(SystemConstants.LIST, applicantList);%>		
 			<input name="merchantId" type="hidden" value = "<%out.print(mDetails.getMarchantId());%>"/>		
@@ -62,5 +62,6 @@
          }%>
 	</table>
 </div>	
+
 </body>
 </html>

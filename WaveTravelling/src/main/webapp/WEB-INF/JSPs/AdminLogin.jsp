@@ -31,6 +31,17 @@
 	</div>
 	
 	<div align = "center">
+	<script>
+	function loadPage() {
+	    var div = document.createElement('div');
+        var img = document.createElement('img');
+        img.src = '${pageContext.request.contextPath}/resources/Images/pageLoading.gif';
+        div.innerHTML = "<br><br><br><br><br><br><br><br><br><br><br><br><br><br>";
+        div.style.cssText = 'position: fixed; z-index: 5000; top:0%; left:0%; width: 100%; height: 100%; text-align: center; background: rgba(0,0,0,0.7);';
+        div.appendChild(img);
+        document.body.appendChild(div);
+	}
+	</script>
 		<form:form id="loginForm" modelAttribute="AdminLogin" action="loginProcess" method="post" onsubmit="return validateAdminLoginForm()">
 			<table class = "adminLoginTable">
 				<tr>
@@ -72,6 +83,10 @@
 		</form:form>
 		<a href = "${pageContext.request.contextPath}/AdminMemorableWordPasswordReset" style = "color:white;">
 		<%out.print(AdminConstantsI.RESET_PASSWORD);%></a>
-	</div>	
+	</div>
+	<div align = "center" style = " background-color: #000;
+  background-color: rgba(0, 0, 0, 0.7);">
+		
+</div>
 </body>
 </html>

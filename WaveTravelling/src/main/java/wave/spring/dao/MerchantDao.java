@@ -77,7 +77,7 @@ public class MerchantDao implements MerchantDaoI {
 	}
 
 	// added Gaurav Srivastava
-	public List<MerchantDetails> getAcceptedMerchantList() {
+	public List<MerchantDetails> getAcceptedMerchantList(String status) {
 		List<MerchantDetails> list = new ArrayList<MerchantDetails>();
 		Session session = null;
 		try {
@@ -86,7 +86,7 @@ public class MerchantDao implements MerchantDaoI {
 			CriteriaQuery<MerchantDetails> criteriaQuery = builder.createQuery(MerchantDetails.class);
 			Root<MerchantDetails> applicantList = criteriaQuery.from(MerchantDetails.class);
 			criteriaQuery.select(applicantList);
-			criteriaQuery.where(builder.equal(applicantList.get("status"), AdminConstantsI.ALREADY_REGISTERED));
+			criteriaQuery.where(builder.equal(applicantList.get("status"), status));
 			criteriaQuery.orderBy(builder.asc(applicantList.get("submissionDate")));
 			list = session.createQuery(criteriaQuery).getResultList();
 			session.close();

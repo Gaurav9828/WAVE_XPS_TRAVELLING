@@ -9,4 +9,5 @@ public interface MerchantRegistrationI {
 	public HashMap getMerchantApplications();
 	public String deleteMerchantApplication(int merchantId, String mailId);
 	public String createMerchant(MerchantDetails merchant, String creator);
+	public HashMap getMerchants();
 }

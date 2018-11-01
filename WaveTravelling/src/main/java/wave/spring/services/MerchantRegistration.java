@@ -66,7 +66,7 @@ public class MerchantRegistration implements MerchantRegistrationI {
 	// added by Gaurav Srivastava
 	public HashMap getMerchantApplications() {
 		HashMap map = new HashMap();
-		List<MerchantDetails> applicantList = dao.getAcceptedMerchantList();
+		List<MerchantDetails> applicantList = dao.getAcceptedMerchantList(AdminConstantsI.ALREADY_REGISTERED);
 		if (applicantList.isEmpty()) {
 			map.put(SystemConstants.MSG, SystemConstants.FALSE);
 		} else {
@@ -75,6 +75,20 @@ public class MerchantRegistration implements MerchantRegistrationI {
 		}
 		return map;
 	}
+	
+	
+	// added by Gaurav Srivastava
+		public HashMap getMerchants() {
+			HashMap map = new HashMap();
+			List<MerchantDetails> merchantList = dao.getAcceptedMerchantList(AdminConstantsI.ALREADY_MERCHANT);
+			if (merchantList.isEmpty()) {
+				map.put(SystemConstants.MSG, SystemConstants.FALSE);
+			} else {
+				map.put(SystemConstants.MSG, SystemConstants.TRUE);
+				map.put(SystemConstants.LIST, merchantList);
+			}
+			return map;
+		}
 
 	public String deleteMerchantApplication(int merchantId, String mailId) {
 		String message = "";

@@ -1,3 +1,4 @@
+
 function validateAdminLoginForm()
 {
     var id=document.forms["loginForm"]["authValue1"].value;  
@@ -27,7 +28,10 @@ function validateAdminLoginForm()
     	}, 1500);
     	document.getElementById("errorMsg").innerHTML="Invalid captcha entered ..";
         return false;
+    }else{
+    	return loadPage();
     }
+    	
         return true;
 }
 
@@ -186,6 +190,8 @@ function validateMerchantRegistrationForm() {
     	}, 1500);
     	document.getElementById("errorMsg").innerHTML="Invalid captcha entered ..";
         return false;
+    }else{
+    	loadPage();
     }
  		return true;
 

@@ -19,7 +19,7 @@ public interface SystemConstants {
 	//mail generation		
 			TEMPORARY_PASSWORD_MAIL_SENT = "We have sent you a temporary password to your registered mail id..",
 			ADMIN_SENDER_MAIL_ID = "gauravsri9828@gmail.com",
-			SENDER_PASSWORD = "xxxxxxxxxx",
+			SENDER_PASSWORD = "7309831726",
 			
 			MAIL_TRANSPORT_PROTOCOL = "mail.transport.protocol",
 			MAIL_HOST = "mail.host",
@@ -76,6 +76,8 @@ public interface SystemConstants {
 			
 			EMPTY_LIST = "List is empty",
 			LIST = "list",
-			MERCHANT = "merchant";
+			MERCHANT_LIST = "merchantList",
+			MERCHANT = "merchant",
+			MERCHANT_DETAILS = "merchantDetails";
 			
 }

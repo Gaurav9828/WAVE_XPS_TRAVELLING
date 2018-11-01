@@ -162,11 +162,57 @@ public class MerchantRegistrationController {
 		String message = merchantRegistration.createMerchant(merchant, empDetails.getEmployeeId());
 		if(message.equals(SystemConstants.ERROR)) {
 			mav.addObject(SystemConstants.MSG, SystemConstants.SOMETHING_ERROR);
+			request.setAttribute(SystemConstants.MERCHANT, merchant);
 		}else {
 			mav.addObject(SystemConstants.MSG_SUCCESS, message);
 			request.setAttribute(SystemConstants.MERCHANT, merchant);
 		}
 		return mav;
 	}
+	
+	
+	// added by Gaurav Sriavstava
+		@RequestMapping(value = "/merchantDetails", method = RequestMethod.POST)
+		public ModelAndView merchantDetails(HttpServletRequest request, HttpServletResponse response) {
+			ModelAndView mav = new ModelAndView("AdminMerchantDetails");
+			HttpSession session = request.getSession();
+			// gentrate application List
+			MerchantRegistrationI mercahntRegistration = new MerchantRegistration();
+			HashMap map = mercahntRegistration.getMerchants();
+			if (map.get(SystemConstants.MSG).equals(SystemConstants.FALSE)) {
+				String message = SystemConstants.EMPTY_LIST;
+				mav.addObject(SystemConstants.MSG, message);
+			} else {
+				session.setAttribute(SystemConstants.MERCHANT_LIST, map.get(SystemConstants.LIST));
+			}
+			return mav;
+		}
+		
+		
+		// added by Gaurav Sriavstava
+		@RequestMapping(value = "/merchantDetailsView", method = RequestMethod.POST)
+		public ModelAndView merchantDetailsView(HttpServletRequest request, HttpServletResponse response) {
+			HttpSession session = request.getSession();
+			String merchantId = request.getParameter("merchantId");
+			List<MerchantDetails> merchantList = (List<MerchantDetails>) session.getAttribute(SystemConstants.MERCHANT_LIST);
+			ModelAndView mav = new ModelAndView("AdminMerchantDetailsView");
+			// gentrate application List
+			MerchantDetails merchant1 = null;
+			for (MerchantDetails merchant : merchantList) {
+				if (merchant.getMarchantId().toString().equals(merchantId)) {
+					merchant1 = merchant;
+					continue;
+				}
+			}
+			request.setAttribute(SystemConstants.MERCHANT_DETAILS, merchant1);
+			return mav;
+		}
+		
+		// added by Gaurav Sriavstava
+		@RequestMapping(value = "/backAdminMerchantDetails", method = RequestMethod.POST)
+		public ModelAndView backAdminMerchantDetails(HttpServletRequest request, HttpServletResponse response) {
+			ModelAndView mav = new ModelAndView("AdminMerchantDetails");
+			return mav;
+		}
 
 }

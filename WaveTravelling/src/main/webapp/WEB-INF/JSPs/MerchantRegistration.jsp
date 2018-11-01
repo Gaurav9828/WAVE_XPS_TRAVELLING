@@ -31,7 +31,7 @@
 	</div>
 	<div align = "center">
 		<form:form id="merchantRegistrationForm" modelAttribute="MerchantRegistration" action="merchantRegistrationProcess" 
-		method="POST" onsubmit="return validateMerchantRegistrationForm()">
+		method="POST" onsubmit="return validateMerchantRegistrationForm()" >
 			<table class = "adminLoginTable">
 				<tr>
 					<th colspan="4" style="color:white;">Register here to be a part of Wave Xps Travelling and engage your vechile with us.</th>
@@ -108,5 +108,17 @@
 			</table>
 		</form:form>
 	</div>	
+	
+	<script>
+	function loadPage() {
+	    var div = document.createElement('div');
+        var img = document.createElement('img');
+        img.src = '${pageContext.request.contextPath}/resources/Images/pageLoading.gif';
+        div.innerHTML = "<br><br><br><br><br><br><br><br><br><br><br><br><br><br>";
+        div.style.cssText = 'position: fixed; z-index: 5000; top:0%; left:0%; width: 100%; height: 100%; text-align: center; background: rgba(0,0,0,0.7);';
+        div.appendChild(img);
+        document.body.appendChild(div);
+	}
+</script>
 </body>
 </html>

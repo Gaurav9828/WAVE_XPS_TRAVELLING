@@ -15,7 +15,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import wave.spring.Constants.AdminConstantsI;
 import wave.spring.Constants.SystemConstants;
-import wave.spring.model.MerchantDetails;
+import wave.spring.security.Security;
 import wave.spring.model.EmployeeDetails;
 import wave.spring.model.Login;
 import wave.spring.services.AdminLogin;
@@ -108,6 +108,7 @@ public class LoginController {
 	public ModelAndView showPasswordReset(HttpServletRequest request, HttpServletResponse response,
 			@ModelAttribute("AdminPasswordReset") Login resetValues) {
 		HttpSession session = request.getSession();
+		Security security = new Security();
 		HashMap<?, ?> map = new HashMap();
 		EmployeeDetails employeeDetails = (EmployeeDetails) session.getAttribute(AdminConstantsI.EMPLOYEE_DETAILS);
 		ModelAndView mav = null;
@@ -180,7 +181,11 @@ public class LoginController {
 				mav = new ModelAndView("AdminLogin");
 				mav.addObject("AdminLogin", new Login());
 				mav.addObject(SystemConstants.MSG, AdminConstantsI.INVALID_USERID_OR_SECRET_WORD);
-			} else {
+			} else if(message.equals(SystemConstants.MAIL_ERROR)){ 
+				mav = new ModelAndView("AdminLogin");
+				mav.addObject(SystemConstants.MSG, AdminConstantsI.MAIL_SENDING_NETWORK_ERROR);
+				mav.addObject("AdminLogin", new Login());
+			}else {
 				mav = new ModelAndView("AdminLogin");
 				mav.addObject(SystemConstants.MSG, SystemConstants.SOMETHING_WRONG);
 				mav.addObject("AdminLogin", new Login());

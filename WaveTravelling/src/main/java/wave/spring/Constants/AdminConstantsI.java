@@ -40,6 +40,9 @@ public interface AdminConstantsI {
 			CITY = "Choose City",
 			PIN_CODE = "Pin Code",
 			EMAIL_ID = "Email Id",
+			MAIL_SENT = "S",
+			MAIL_WAITING = "W",
+			MAIL_SENDING_NETWORK_ERROR = "There is network error while sending mail.\nPlease try again later.",
 			CHOOSE_IDENTITY = "Choose Identity Type",
 			ID_NUMBER = "Identity Secquence",
 			ADHAR_ID = "Adhar",
@@ -53,13 +56,25 @@ public interface AdminConstantsI {
 		    ALREADY_MERCHANT = "AM",
 		    ALREADY_MERCHANT_MSG = "You are already a merchant of Wave Xps Travelling",
 		    BLACK_LISTED_REQUEST = "BL",
+		    UNDER_BLACKLIST_PROCESS = "UBL",
+		    UNDER_CANCLE_BLACKLIST_PROCESS = "UCBL",
 		    BLACK_LISTED_REQUEST_MSG = "Sorry ! You are black listed for registration request due to some company policies ..",
 		    REGISTRAION_REQUEST_SUCCESSFUL = "Your registration request has been accepted. We have sent you a email for further informations ..",
 		    SOME_THING_WRONG_REGISTRATION = "Sorry ! Registration failed due to some error. Please try after some time ..",
-		    ERROR_MAIL_SENDING = "\nError occured during mail sending. We will send your mail sooner.",
+		    ERROR_MAIL_SENDING = "Error occured during mail sending. We will send your mail sooner.\n",
 		    REJECTION_SUCCESSFUL = "Merchant application successfully rejected",
 		    MERCHANT_ADDED = "Merchant added successfully.",    
+		    
+		    //merchant block-unblock
+		    REQUEST_ACCEPTED = "Request accepted",
 			
-		    LIST_EMPTY = "Empty list";
+		    LIST_EMPTY = "Empty list",
+			PENDING_MAIL_LIST = "Pending Mail List",
+			TO = "to",
+			SUBJECT = "subject",
+			FROM = "from",
+			MESSAGE = "msg",
+			SENT = "Sent",
+			FAILED = "Failed";
 		int MAX_INVALID_PASSWORD_ATTEMPTS = 4;
 }

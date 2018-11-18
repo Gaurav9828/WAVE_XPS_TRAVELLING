@@ -146,17 +146,15 @@ public class AdminLogin implements AdminLoginI {
 		String inputMemorableWord = security.valueEncrptyer(resetValues.getAuthValue2());
 		if (employeeDetails.getMemorableWord().equals(inputMemorableWord)) {
 			HashMap<String, String> map = new HashMap();
-			map.put("to", employeeDetails.getEmailId());
-			map.put("from", SystemConstants.ADMIN_SENDER_MAIL_ID);
-			map.put("subject", SystemConstants.TEMPORARY_PASSWORD_RESET_SUBJECT);
+			map.put(AdminConstantsI.TO, employeeDetails.getEmailId());
+			map.put(AdminConstantsI.SUBJECT, SystemConstants.TEMPORARY_PASSWORD_RESET_SUBJECT);
 
 			HashMap<String, String> val = security.generateCaptcha();
 			String temporartPassword = val.get(SystemConstants.CAPTCHA);
 			String messageToBeSent = temporartPassword + SystemConstants.FIRST_MESSAGE+"\n"+ SystemConstants.SECOND_MESSAGE
 					+"\n\n\n\n"+ SystemConstants.THIRD_MESSAGE;
 			
-			map.put("msg", messageToBeSent);
-			map.put("password", SystemConstants.SENDER_PASSWORD);
+			map.put(AdminConstantsI.MESSAGE, messageToBeSent);
 			String msg = security.sendMail(map);
 			if (msg.equals(SystemConstants.ACTIVE)) {
 				employeeDetails.setLastLogin(null);
@@ -165,7 +163,7 @@ public class AdminLogin implements AdminLoginI {
 				dao.updateEmployeeDetails(employeeDetails);
 				message = SystemConstants.ACTIVE;
 			} else {
-				message = SystemConstants.INACTIVE;
+				message = SystemConstants.MAIL_ERROR;
 			}
 		} else {
 			message = SystemConstants.INACTIVE;

@@ -13,4 +13,5 @@
     <bean id="adminLoginDao" class="wave.spring.services.AdminLogin" />
     <bean id="merchantDao" class="wave.spring.dao.MerchantDao" />					
     <bean id="merchantRegistration" class="wave.spring.services.MerchantRegistration" />
+    <bean id="systemDao" class="wave.spring.dao.SystemDao" />					
 </beans>

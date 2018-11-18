@@ -157,7 +157,5 @@ public class MerchantDetails {
 	public void setAppointementDates(String appointementDates) {
 		this.appointementDates = appointementDates;
 	}
-
-	
 	
 }

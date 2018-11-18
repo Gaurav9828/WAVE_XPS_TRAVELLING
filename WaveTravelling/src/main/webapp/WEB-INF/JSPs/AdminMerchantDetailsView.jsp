@@ -63,9 +63,31 @@
 		<form:form id="applilcationForm" modelAttribute="AdminMerchantApplicationView"  method="post" >
 		<input name="merchantId" type="hidden" value = "<%out.print(merchantDetails.getMarchantId());%>"/>
 		<tr>
+			<td  <%if(merchantDetails.getStatus().equals(AdminConstantsI.BLACK_LISTED_REQUEST)){%>style = "color:red;"<%}
+			else if(merchantDetails.getStatus().equals(AdminConstantsI.UNDER_BLACKLIST_PROCESS) || merchantDetails.getStatus().equals(AdminConstantsI.UNDER_CANCLE_BLACKLIST_PROCESS))
+			{%>style = "color:yellow;"<%} %>>
+			<% if(merchantDetails.getStatus().equals(AdminConstantsI.BLACK_LISTED_REQUEST)){
+			out.print("Black Listed");
+			}else if(merchantDetails.getStatus().equals(AdminConstantsI.UNDER_BLACKLIST_PROCESS)){
+				out.print("Under Black List Process");
+			}else if(merchantDetails.getStatus().equals(AdminConstantsI.UNDER_CANCLE_BLACKLIST_PROCESS)){
+				out.print("Under Black Listed Cancellation");
+			}
+			%>
+			</td>
+			<td align = "right"><input name = "submit" type = "submit" class = "submitButton" value=
+			<% if(merchantDetails.getStatus().equals(AdminConstantsI.BLACK_LISTED_REQUEST)){
+				out.print("Unblock");
+			}else if(merchantDetails.getStatus().equals(AdminConstantsI.UNDER_BLACKLIST_PROCESS)){
+				out.print("Undo");
+			}else if(merchantDetails.getStatus().equals(AdminConstantsI.UNDER_CANCLE_BLACKLIST_PROCESS)){
+				out.print("Cancle");
+			}else{
+				out.print("Block");
+			}
+			%> formaction = "blockUnblockMerchantProcess"/></td>
 			<td align = "left"><input type = "submit" class = "submitButton" value="Back" formaction = "backAdminMerchantDetails"/></td>
-			<td></td>
-			<td></td>
+			
 			<td></td>
 		</tr>
 		</form:form>

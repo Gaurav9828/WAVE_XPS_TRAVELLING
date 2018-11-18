@@ -1,3 +1,4 @@
+<%@page import="wave.spring.model.EmailDetails"%>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <%@taglib uri="http://www.springframework.org/tags" prefix="spring"%>
 <%@ taglib uri = "http://java.sun.com/jsp/jstl/core" prefix = "c" %>
@@ -20,10 +21,9 @@
 	href="${pageContext.request.contextPath}/resources/themes/CSS/list_table_Style_Sheet.css">
 </head>
 <body>
-<div align = "center">
-	<%List<MerchantDetails> applicantList = null;
+	<%List<EmailDetails> emailDetails = null;
 	try{
-		applicantList = (List<MerchantDetails>) session.getAttribute(SystemConstants.MERCHANT_LIST);
+		emailDetails = (List<EmailDetails>) request.getAttribute(AdminConstantsI.PENDING_MAIL_LIST);
 	}catch(NullPointerException e){
 	}%>
 	<table class = "adminLoginTable">
@@ -35,29 +35,28 @@
 					</th>
 				</tr>
 		<tr align = "center">
-			<th class = "formText">Merchant Id</th>
-			<th class = "formText">Name</th>
-			<th class = "formText">Gmail</th>
-			<th class = "formText">View</th>
+			<th class = "formText">To</th>
+			<th class = "formText">Subject</th>
+			<th class = "formText">Date/Time</th>
+			<th class = "formText">Resend</th>
 		</tr>
 			<%
-			if(applicantList == null){%>
+			if(emailDetails == null){%>
 			
 		   <%}else{
-		   	for(MerchantDetails mDetails : applicantList){
+		   	for(EmailDetails mDetails : emailDetails){
 			
 			%>
 		<form:form id="applilcationForm" modelAttribute="AdminMerchantDetails"  method="post" >
+			<input type = "hidden" name = "<% out.print(AdminConstantsI.TO);%>" value = "<%out.print(mDetails.getDestinationEmailId());%>"/>
+			<input type = "hidden" name = "<% out.print(AdminConstantsI.MESSAGE);%>" value = "<%out.print(mDetails.getMessage());%>"/>
+			<input type = "hidden" name = "<% out.print(AdminConstantsI.SUBJECT);%>" value = "<%out.print(mDetails.getSubject());%>"/>
+			
 			<tr align = "center">
-			<%request.setAttribute(SystemConstants.LIST, applicantList);%>		
-			<input name="merchantId" type="hidden" value = "<%out.print(mDetails.getMarchantId());%>"/>		
-			<td><%out.print(mDetails.getMarchantId());%></td>
-			<td <%if(mDetails.getStatus().equals(AdminConstantsI.BLACK_LISTED_REQUEST)){%>style = "color:red;"<%}
-			else if(mDetails.getStatus().equals(AdminConstantsI.UNDER_BLACKLIST_PROCESS) || mDetails.getStatus().equals(AdminConstantsI.UNDER_CANCLE_BLACKLIST_PROCESS))
-			{%>style = "color:yellow;"<%} %>>
-			<%out.print(mDetails.getFirstName()+" "+mDetails.getLastName());%></td>
-			<td><%out.print(mDetails.getEmailId());  %></td>
-			<td><input type = "submit" class = "submitButton" value="View" formaction = "merchantDetailsView"/></td>
+			<td><%out.print(mDetails.getDestinationEmailId());%></td>
+			<td><%out.print(mDetails.getSubject());%></td>
+			<td><%out.print(mDetails.getDateTime());  %></td>
+			<td><input type = "submit" class = "submitButton" value="Send" formaction = "resendEmailManually"/></td>
 			</tr>
 		</form:form>	
 		   	<%} 

@@ -42,7 +42,11 @@
 
 /* On mouse-over */
 .sidenav a:hover, .dropdown-btn:hover {
-    color: #f1f1f1;
+    color: white;
+}
+
+.sidenav a:hover, .dropbtnLevel2:hover {
+    color: Black;
 }
 
 /* Main content */

@@ -32,7 +32,7 @@ public interface SystemConstants {
 			JAVAX_NET_SSL = "javax.net.ssl.SSLSocketFactory",
 			MAIL_SMTP_SOCKET_FACTORY_FALL_BACK = "mail.smtp.socketFactory.fallback",
 			
-			TEMPORARY_PASSWORD_RESET_SUBJECT = "WAVE Xps Passwrd Reset ",
+			TEMPORARY_PASSWORD_RESET_SUBJECT = "WAVE Xps Password Reset ",
 			FIRST_MESSAGE = "  is your temporary password. Please reset your password withing 1 hour.",
 			SECOND_MESSAGE = "Do not share your sensitive data like password/memorable word with anyone. Thank you we are glad to help you.",
 			THIRD_MESSAGE = "Wave Xps password reset functionality through secret memorable word as per the user request.",

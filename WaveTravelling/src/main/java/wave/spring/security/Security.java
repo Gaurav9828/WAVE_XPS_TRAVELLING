@@ -1,8 +1,13 @@
 package wave.spring.security;
 
+import java.time.LocalDate;
+import java.time.LocalTime;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Properties;
 import java.util.Random;
+import java.util.TimeZone;
 
 import javax.mail.Message;
 import javax.mail.MessagingException;
@@ -12,7 +17,12 @@ import javax.mail.Transport;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 
+import wave.spring.Constants.AdminConstantsI;
 import wave.spring.Constants.SystemConstants;
+import wave.spring.dao.SystemDao;
+import wave.spring.dao.SystemDaoI;
+import wave.spring.model.EmailDetails;
+import wave.spring.model.VechileAttributes;
 
 public class Security implements SecurityI {
 	//added by Gaurav Srivastava
@@ -109,12 +119,22 @@ public class Security implements SecurityI {
 	
 	public String sendMail(HashMap<String, String> map) {
 		String MSG = "";
+		LocalTime time = LocalTime.now();
+		LocalDate date = LocalDate.now();
+		String dateTime = time.toString()+" "+date.toString();
+		EmailDetails emailDetails = new EmailDetails();
 		try {
-			String to = map.get("to");
-			String from = map.get("from");
-			String subject = map.get("subject");
-			final String password = map.get("password");
-			String msg = map.get("msg");
+			String to = map.get(AdminConstantsI.TO);
+			String from = SystemConstants.ADMIN_SENDER_MAIL_ID;
+			String subject = map.get(AdminConstantsI.SUBJECT);
+			final String password = SystemConstants.SENDER_PASSWORD;
+			String msg = map.get(AdminConstantsI.MESSAGE);
+			//to save mail details
+			emailDetails.setSourceEmailId(from);
+			emailDetails.setDestinationEmailId(to);
+			emailDetails.setSubject(subject);
+			emailDetails.setMessage(msg);
+			emailDetails.setDateTime(dateTime);
 
 			Properties props = new Properties();
 			props.setProperty(SystemConstants.MAIL_TRANSPORT_PROTOCOL, "smtp");
@@ -145,11 +165,27 @@ public class Security implements SecurityI {
 			Transport.send(message);
 			transport.close();
 			MSG = SystemConstants.ACTIVE;
+			emailDetails.setEmailStatus(AdminConstantsI.MAIL_SENT);		
 		} catch (MessagingException mex) {
 			mex.printStackTrace();
 			MSG = SystemConstants.INACTIVE;
+			emailDetails.setEmailStatus(AdminConstantsI.MAIL_WAITING);		
+		}
+		SystemDao systemDao = new SystemDao();
+		try {
+			systemDao.saveEmailDetails(emailDetails);
+		}catch(Exception e) {
+			e.printStackTrace();
 		}
 		return MSG;
+	}
+	
+	//added by Gaurav Srivastava
+	public List<VechileAttributes> getVechileList(){
+		List<VechileAttributes> vechiles = new ArrayList<VechileAttributes>();
+		SystemDaoI systemDao = new SystemDao();
+		vechiles = systemDao.getVechileList();
+		return vechiles;
 	}
 
 }

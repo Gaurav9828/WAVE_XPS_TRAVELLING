@@ -22,18 +22,7 @@
 </head>
 <body style="background-color: #f5f5f5;">
 	<%
-	response.setHeader("Cache-Control", "no-cache,no-store,must-revalidate");
-	response.setHeader("Pragma","no-cache");
-	response.setHeader("Expires","0");	
 	EmployeeDetails employeeDetails = null;
-	String Fname = "",
-			Lname = "",
-			Profile = "", 
-			PIN = "",
-			emailId = "";
-	int notification = 0,
-		 bal = 0,
-		 N = 0;
 	List<List<String>> menuList = new  ArrayList(); 
 	List<String> menuDomain = new  ArrayList();
 	try{
@@ -41,6 +30,7 @@
 		menuList = (List<List<String>>)session.getAttribute(AdminConstantsI.EMPLOYEE_MENU_LIST);
 		menuDomain = (List<String>)session.getAttribute(AdminConstantsI.EMPLOYEE_MENU_DOMAIN_LIST);
 		%>
+		<div align = "top">
 		<div class = "sidenav">
 		<%for(String menuDomainValue : menuDomain){%>
 			<button class="dropdown-btn"><%out.print(menuDomainValue); %><i class="fa fa-caret-down"></i></button>
@@ -53,8 +43,8 @@
 		    		}
 		  		}
 		    	%>
-		    	</div>
-<%
+		    </div>
+				<%
 			}
 		}catch(Exception e){
 			e.printStackTrace();
@@ -63,6 +53,7 @@
 		<form id="menuForm" modelAttribute="AdminWelcome" action="logout" method="post" target = "loginPage">
 		    	<input class = "logoutButton" type = "submit" value = "Logout" />
 		</form>
+	</div>
 	</div>	
 	<script>
 var dropdown = document.getElementsByClassName("dropdown-btn");
@@ -79,6 +70,7 @@ for (i = 0; i < dropdown.length; i++) {
     }
   });
 }
+
 </script>
 </body>
 </html>

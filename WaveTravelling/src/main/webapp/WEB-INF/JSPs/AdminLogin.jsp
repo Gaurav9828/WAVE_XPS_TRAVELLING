@@ -21,6 +21,11 @@
 	href="${pageContext.request.contextPath}/resources/themes/CSS/Style_Sheet.css">
 <script type="text/javascript" src="${pageContext.request.contextPath}/resources/themes/javaScript/loginFormValidation.js"></script>
 </head>
+
+<SCRIPT type="text/javascript">
+    window.history.forward();
+    function noBack() { window.history.forward(); }
+</SCRIPT>
 <body>
 	<%SecurityI security = new Security();
 	  HashMap<String,String> map = new HashMap();

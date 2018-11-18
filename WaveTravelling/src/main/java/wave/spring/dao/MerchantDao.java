@@ -1,12 +1,9 @@
 package wave.spring.dao;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 
-import javax.persistence.Query;
 import javax.persistence.criteria.CriteriaBuilder;
-import javax.persistence.criteria.CriteriaDelete;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
 
@@ -16,7 +13,7 @@ import org.hibernate.Transaction;
 import wave.spring.Constants.AdminConstantsI;
 import wave.spring.Constants.SystemConstants;
 import wave.spring.Hibernate.HibernateUtils;
-import wave.spring.model.Employee1MenuList;
+import wave.spring.model.EmailDetails;
 import wave.spring.model.EmployeeDetails;
 import wave.spring.model.MerchantDetails;
 
@@ -77,7 +74,7 @@ public class MerchantDao implements MerchantDaoI {
 	}
 
 	// added Gaurav Srivastava
-	public List<MerchantDetails> getAcceptedMerchantList(String status) {
+	public List<MerchantDetails> getAcceptedMerchantList() {
 		List<MerchantDetails> list = new ArrayList<MerchantDetails>();
 		Session session = null;
 		try {
@@ -86,7 +83,39 @@ public class MerchantDao implements MerchantDaoI {
 			CriteriaQuery<MerchantDetails> criteriaQuery = builder.createQuery(MerchantDetails.class);
 			Root<MerchantDetails> applicantList = criteriaQuery.from(MerchantDetails.class);
 			criteriaQuery.select(applicantList);
-			criteriaQuery.where(builder.equal(applicantList.get("status"), status));
+			criteriaQuery.where(builder.notEqual(applicantList.get("status"), AdminConstantsI.ALREADY_REGISTERED));
+			criteriaQuery.orderBy(builder.asc(applicantList.get("submissionDate")));
+			list = session.createQuery(criteriaQuery).getResultList();
+			session.close();
+			if (list.isEmpty()) {
+				return list;
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+			return list;
+		} finally {
+			try {
+				HibernateUtils.getSessionFactory().close();
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+			session.close();
+		}
+		return list;
+	}
+	
+	
+	// added Gaurav Srivastava
+	public List<MerchantDetails> getApplicantMerchantList() {
+		List<MerchantDetails> list = new ArrayList<MerchantDetails>();
+		Session session = null;
+		try {
+			session = HibernateUtils.getSessionFactory().openSession();
+			CriteriaBuilder builder = session.getCriteriaBuilder();
+			CriteriaQuery<MerchantDetails> criteriaQuery = builder.createQuery(MerchantDetails.class);
+			Root<MerchantDetails> applicantList = criteriaQuery.from(MerchantDetails.class);
+			criteriaQuery.select(applicantList);
+			criteriaQuery.where(builder.equal(applicantList.get("status"), AdminConstantsI.ALREADY_REGISTERED));
 			criteriaQuery.orderBy(builder.asc(applicantList.get("submissionDate")));
 			list = session.createQuery(criteriaQuery).getResultList();
 			session.close();
@@ -185,6 +214,37 @@ public class MerchantDao implements MerchantDaoI {
 			session.close();
 		}
 		return;
+	}
+	
+	public List<EmailDetails> getPendingEmailDetails(){
+		List<EmailDetails> list = new ArrayList<EmailDetails>();
+		Session session = null;
+		try {
+			session = HibernateUtils.getSessionFactory().openSession();
+			CriteriaBuilder builder = session.getCriteriaBuilder();
+			CriteriaQuery<EmailDetails> criteriaQuery = builder.createQuery(EmailDetails.class);
+			Root<EmailDetails> applicantList = criteriaQuery.from(EmailDetails.class);
+			criteriaQuery.select(applicantList);
+			criteriaQuery.where(builder.and(builder.equal(applicantList.get("emailStatus"), AdminConstantsI.MAIL_WAITING),
+					builder.notEqual(applicantList.get(AdminConstantsI.SUBJECT), SystemConstants.TEMPORARY_PASSWORD_RESET_SUBJECT)));
+			criteriaQuery.orderBy(builder.asc(applicantList.get("dateTime")));
+			list = session.createQuery(criteriaQuery).getResultList();
+			session.close();
+			if (list.isEmpty()) {
+				return list;
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+			return list;
+		} finally {
+			try {
+				HibernateUtils.getSessionFactory().close();
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+			session.close();
+		}
+		return list;
 	}
 
 }

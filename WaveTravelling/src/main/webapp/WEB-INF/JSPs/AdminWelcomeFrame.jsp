@@ -21,6 +21,7 @@
 	</frameset>
 </frameset>
 </head>
-<body>
+<body onload="noBack();"
+    onpageshow="if (event.persisted) noBack();" onunload="">
 </body>
 </html>

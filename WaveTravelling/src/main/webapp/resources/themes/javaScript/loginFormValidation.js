@@ -1,117 +1,98 @@
+function validateAdminLoginForm() {
+	var id = document.forms["loginForm"]["authValue1"].value;
+	if (id == null || id == "") {
+		document.getElementById("errorMsg").innerHTML = "Please enter employee id ..";
+		return false;
+	}
 
-function validateAdminLoginForm()
-{
-    var id=document.forms["loginForm"]["authValue1"].value;  
-    if(id==null || id=="" )
-    {
-    	document.getElementById("errorMsg").innerHTML="Please enter employee id ..";
-        return false;
-    }
+	var pass = document.forms["loginForm"]["authValue2"].value;
+	if (pass == null || pass == "") {
+		document.getElementById("errorMsg").innerHTML = "Please enter your password ..";
+		return false;
+	}
 
-    var pass=document.forms["loginForm"]["authValue2"].value;
-    if(pass==null || pass=="")
-    {
-    	document.getElementById("errorMsg").innerHTML="Please enter your password ..";
-        return false;
-    }
-    
-    var capp=document.forms["loginForm"]["captcha"].value;
-    if(capp==null || capp=="")
-    {
-    	document.getElementById("errorMsg").innerHTML="Please enter captcha ..";
-        return false;
-    }
-    var key=document.forms["loginForm"]["keyCaptcha"].value;
-    if(key!=capp){
-    	setTimeout(function(){
-    		   window.location.reload(1);
-    	}, 1500);
-    	document.getElementById("errorMsg").innerHTML="Invalid captcha entered ..";
-        return false;
-    }else{
-    	return loadPage();
-    }
-    	
-        return true;
+	var capp = document.forms["loginForm"]["captcha"].value;
+	if (capp == null || capp == "") {
+		document.getElementById("errorMsg").innerHTML = "Please enter captcha ..";
+		return false;
+	}
+	var key = document.forms["loginForm"]["keyCaptcha"].value;
+	if (key != capp) {
+		//$( "#cap" ).load(window.location.href + " #cap>*","" );
+		setTimeout(function() {
+			window.location.reload(1);
+		}, 1500);
+		document.getElementById("errorMsg").innerHTML = "Invalid captcha entered ..";
+		return false;
+	} else {
+		return loadPage();
+	}
+
+	return true;
 }
 
-function adminForceMemorableWordSet()
-{
-    var memorableWord=document.forms["adminForceMemorableWordSetForm"]["authValue1"].value;  
-    if(memorableWord==null || memorableWord=="" )
-    {
-    	document.getElementById("errorMsg").innerHTML="Please enter your secret memorable word ..";
-        return false;
-    }
-    var confirm=document.forms["adminForceMemorableWordSetForm"]["authValue2"].value;
-    if(confirm==null || confirm=="")
-    {
-    	document.getElementById("errorMsg").innerHTML="Please confirm your secret memorable word ..";
-        return false;
-    }
-    if(memorableWord!=confirm){
-    	document.getElementById("errorMsg").innerHTML="Please same memorable word ..";
-        return false;
-    }
-    else
-    {
-        return true;
-    }
+function adminForceMemorableWordSet() {
+	var memorableWord = document.forms["adminForceMemorableWordSetForm"]["authValue1"].value;
+	if (memorableWord == null || memorableWord == "") {
+		document.getElementById("errorMsg").innerHTML = "Please enter your secret memorable word ..";
+		return false;
+	}
+	var confirm = document.forms["adminForceMemorableWordSetForm"]["authValue2"].value;
+	if (confirm == null || confirm == "") {
+		document.getElementById("errorMsg").innerHTML = "Please confirm your secret memorable word ..";
+		return false;
+	}
+	if (memorableWord != confirm) {
+		document.getElementById("errorMsg").innerHTML = "Please same memorable word ..";
+		return false;
+	} else {
+		return true;
+	}
 }
 
-function validateAdminPasswordResetForm()
-{
-    var currentPass=document.forms["passwordResetForm"]["authValue1"].value;  
-    if(currentPass==null || currentPass=="" )
-    {
-    	document.getElementById("errorMsg").innerHTML="Please enter your current password ..";
-        return false;
-    }
+function validateAdminPasswordResetForm() {
+	var currentPass = document.forms["passwordResetForm"]["authValue1"].value;
+	if (currentPass == null || currentPass == "") {
+		document.getElementById("errorMsg").innerHTML = "Please enter your current password ..";
+		return false;
+	}
 
-    var pass=document.forms["passwordResetForm"]["password"].value;
-    if(pass==null || pass=="")
-    {
-    	document.getElementById("errorMsg").innerHTML="Please enter your new password ..";
-        return false;
-    }
-    
-    var newPass=document.forms["passwordResetForm"]["authValue2"].value;
-    if(newPass==null || newPass=="")
-    {
-    	document.getElementById("errorMsg").innerHTML="Please confirm your password ..";
-        return false;
-    }
-    
-    if(pass!=newPass){
-    	document.getElementById("errorMsg").innerHTML="Please enter same password ..";
-        return false;
-    }
-    else
-    {
-        return true;
-    }
+	var pass = document.forms["passwordResetForm"]["password"].value;
+	if (pass == null || pass == "") {
+		document.getElementById("errorMsg").innerHTML = "Please enter your new password ..";
+		return false;
+	}
+
+	var newPass = document.forms["passwordResetForm"]["authValue2"].value;
+	if (newPass == null || newPass == "") {
+		document.getElementById("errorMsg").innerHTML = "Please confirm your password ..";
+		return false;
+	}
+
+	if (pass != newPass) {
+		document.getElementById("errorMsg").innerHTML = "Please enter same password ..";
+		return false;
+	} else {
+		return loadPage();
+	}
+	return true;
 }
 
-function validateAdminMemorableWordPasswordResetForm()
-{
-	 var id=document.forms["memorableWordPasswordResetForm"]["authValue1"].value;  
-	 if(id==null || id=="" )
-	 {
-	   	document.getElementById("errorMsg").innerHTML="Please enter employee id ..";
-	    return false;
-	 }
-	 var secretWord=document.forms["memorableWordPasswordResetForm"]["authValue2"].value;
-	 if(secretWord==null || secretWord=="")
-	 {
-	  	document.getElementById("errorMsg").innerHTML="Please enter your secret memorable word ..";
-	    return false;
-	 }
-     else
-    {
-        return true;
-    }
+function validateAdminMemorableWordPasswordResetForm() {
+	var id = document.forms["memorableWordPasswordResetForm"]["authValue1"].value;
+	if (id == null || id == "") {
+		document.getElementById("errorMsg").innerHTML = "Please enter employee id ..";
+		return false;
+	}
+	var secretWord = document.forms["memorableWordPasswordResetForm"]["authValue2"].value;
+	if (secretWord == null || secretWord == "") {
+		document.getElementById("errorMsg").innerHTML = "Please enter your secret memorable word ..";
+		return false;
+	} else {
+		return loadPage();
+	}
+	return true;
 }
-
 
 function validateMerchantRegistrationForm() {
 	var numExp = /^[0-9]+$/;
@@ -177,24 +158,21 @@ function validateMerchantRegistrationForm() {
 		document.getElementById("errorMsg").innerHTML = "Please enter a valid email id ..";
 		return false;
 	}
-	var capp=document.forms["merchantRegistrationForm"]["captcha"].value;
-    if(capp==null || capp=="")
-    {
-    	document.getElementById("errorMsg").innerHTML="Please enter captcha ..";
-        return false;
-    }
-    var key=document.forms["merchantRegistrationForm"]["keyCaptcha"].value;
-    if(key!=capp){
-    	setTimeout(function(){
-    		   window.location.reload(1);
-    	}, 1500);
-    	document.getElementById("errorMsg").innerHTML="Invalid captcha entered ..";
-        return false;
-    }else{
-    	loadPage();
-    }
- 		return true;
+	var capp = document.forms["merchantRegistrationForm"]["captcha"].value;
+	if (capp == null || capp == "") {
+		document.getElementById("errorMsg").innerHTML = "Please enter captcha ..";
+		return false;
+	}
+	var key = document.forms["merchantRegistrationForm"]["keyCaptcha"].value;
+	if (key != capp) {
+		setTimeout(function() {
+			window.location.reload(1);
+		}, 1500);
+		document.getElementById("errorMsg").innerHTML = "Invalid captcha entered ..";
+		return false;
+	} else {
+		loadPage();
+	}
+	return true;
 
 }
-
-

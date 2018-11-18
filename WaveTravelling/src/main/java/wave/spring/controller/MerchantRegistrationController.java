@@ -1,5 +1,6 @@
 package wave.spring.controller;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
@@ -17,6 +18,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import wave.spring.Constants.AdminConstantsI;
 import wave.spring.Constants.SystemConstants;
+import wave.spring.model.EmailDetails;
 import wave.spring.model.EmployeeDetails;
 import wave.spring.model.MerchantDetails;
 import wave.spring.services.MerchantRegistration;
@@ -122,7 +124,7 @@ public class MerchantRegistrationController {
 		merchantApplicationsPage(request, response);
 		return mav;
 	}
-	
+
 	// added by Gaurav Sriavstava
 	@RequestMapping(value = "/merchantApplicationsView", method = RequestMethod.POST)
 	public ModelAndView merchantApplicationsView(HttpServletRequest request, HttpServletResponse response) {
@@ -141,7 +143,7 @@ public class MerchantRegistrationController {
 		request.setAttribute(SystemConstants.MERCHANT, merchant);
 		return mav;
 	}
-	
+
 	// added by Gaurav Sriavstava
 	@RequestMapping(value = "/merchantApplicationVerified", method = RequestMethod.POST)
 	public ModelAndView merchantApplicationVerified(HttpServletRequest request, HttpServletResponse response) {
@@ -151,68 +153,83 @@ public class MerchantRegistrationController {
 		List<MerchantDetails> applicantList = (List<MerchantDetails>) session.getAttribute(SystemConstants.LIST);
 		ModelAndView mav = new ModelAndView("AdminMerchantApplicationView");
 		// gentrate application List
-		MerchantDetails merchant = null;
-		for (MerchantDetails applicant : applicantList) {
-			if (applicant.getMarchantId().toString().equals(merchantId)) {
-				merchant = applicant;
-				continue;
-			}
-		}
-		MerchantRegistrationI merchantRegistration = new MerchantRegistration();
+		MerchantRegistration merchantRegistration = new MerchantRegistration();
+		MerchantDetails merchant = merchantRegistration.getMerchantDetails(merchantId, applicantList);
 		String message = merchantRegistration.createMerchant(merchant, empDetails.getEmployeeId());
-		if(message.equals(SystemConstants.ERROR)) {
+		if (message.equals(SystemConstants.ERROR)) {
 			mav.addObject(SystemConstants.MSG, SystemConstants.SOMETHING_ERROR);
 			request.setAttribute(SystemConstants.MERCHANT, merchant);
-		}else {
+		} else {
 			mav.addObject(SystemConstants.MSG_SUCCESS, message);
 			request.setAttribute(SystemConstants.MERCHANT, merchant);
 		}
 		return mav;
 	}
-	
-	
+
 	// added by Gaurav Sriavstava
-		@RequestMapping(value = "/merchantDetails", method = RequestMethod.POST)
-		public ModelAndView merchantDetails(HttpServletRequest request, HttpServletResponse response) {
-			ModelAndView mav = new ModelAndView("AdminMerchantDetails");
-			HttpSession session = request.getSession();
-			// gentrate application List
-			MerchantRegistrationI mercahntRegistration = new MerchantRegistration();
-			HashMap map = mercahntRegistration.getMerchants();
-			if (map.get(SystemConstants.MSG).equals(SystemConstants.FALSE)) {
-				String message = SystemConstants.EMPTY_LIST;
-				mav.addObject(SystemConstants.MSG, message);
-			} else {
-				session.setAttribute(SystemConstants.MERCHANT_LIST, map.get(SystemConstants.LIST));
-			}
-			return mav;
+	@RequestMapping(value = "/merchantDetails", method = RequestMethod.POST)
+	public ModelAndView merchantDetails(HttpServletRequest request, HttpServletResponse response) {
+		ModelAndView mav = new ModelAndView("AdminMerchantDetails");
+		HttpSession session = request.getSession();
+		// gentrate application List
+		MerchantRegistrationI mercahntRegistration = new MerchantRegistration();
+		HashMap map = mercahntRegistration.getMerchants();
+		if (map.get(SystemConstants.MSG).equals(SystemConstants.FALSE)) {
+			String message = SystemConstants.EMPTY_LIST;
+			mav.addObject(SystemConstants.MSG, message);
+		} else {
+			session.setAttribute(SystemConstants.MERCHANT_LIST, map.get(SystemConstants.LIST));
 		}
-		
-		
-		// added by Gaurav Sriavstava
-		@RequestMapping(value = "/merchantDetailsView", method = RequestMethod.POST)
-		public ModelAndView merchantDetailsView(HttpServletRequest request, HttpServletResponse response) {
-			HttpSession session = request.getSession();
-			String merchantId = request.getParameter("merchantId");
-			List<MerchantDetails> merchantList = (List<MerchantDetails>) session.getAttribute(SystemConstants.MERCHANT_LIST);
-			ModelAndView mav = new ModelAndView("AdminMerchantDetailsView");
-			// gentrate application List
-			MerchantDetails merchant1 = null;
-			for (MerchantDetails merchant : merchantList) {
-				if (merchant.getMarchantId().toString().equals(merchantId)) {
-					merchant1 = merchant;
-					continue;
-				}
-			}
-			request.setAttribute(SystemConstants.MERCHANT_DETAILS, merchant1);
-			return mav;
+		return mav;
+	}
+
+	// added by Gaurav Sriavstava
+	@RequestMapping(value = "/merchantDetailsView", method = RequestMethod.POST)
+	public ModelAndView merchantDetailsView(HttpServletRequest request, HttpServletResponse response) {
+		HttpSession session = request.getSession();
+		MerchantRegistrationI mercahntRegistration = new MerchantRegistration();
+		String merchantId = request.getParameter("merchantId");
+		List<MerchantDetails> merchantList = (List<MerchantDetails>) session
+				.getAttribute(SystemConstants.MERCHANT_LIST);
+		ModelAndView mav = new ModelAndView("AdminMerchantDetailsView");
+		// gentrate application List
+		MerchantDetails merchant = mercahntRegistration.getMerchantDetails(merchantId, merchantList);
+		request.setAttribute(SystemConstants.MERCHANT_DETAILS, merchant);
+		return mav;
+	}
+
+	// added by Gaurav Sriavstava
+	@RequestMapping(value = "/backAdminMerchantDetails", method = RequestMethod.POST)
+	public ModelAndView backAdminMerchantDetails(HttpServletRequest request, HttpServletResponse response) {
+		ModelAndView mav = new ModelAndView("AdminMerchantDetails");
+		return mav;
+	}
+
+	// added by Gaurav Sriavstava
+	@RequestMapping(value = "/blockUnblockMerchantProcess", method = RequestMethod.POST)
+	public ModelAndView blockUnblockMerchantProcess(HttpServletRequest request, HttpServletResponse response) {
+		ModelAndView mav = new ModelAndView("AdminMerchantDetailsView");
+		String message = "";
+		HttpSession session = request.getSession();
+		String reqType = request.getParameter("submit");
+		String merchantId = request.getParameter("merchantId");
+		List<MerchantDetails> merchantList = (List<MerchantDetails>) session.getAttribute(SystemConstants.MERCHANT_LIST);
+		MerchantRegistrationI mercahntRegistration = new MerchantRegistration();
+		MerchantDetails merchant = mercahntRegistration.getMerchantDetails(merchantId, merchantList);
+		request.setAttribute(SystemConstants.MERCHANT_DETAILS, merchant);
+		if(reqType.equals("Block")) {
+			 message = mercahntRegistration.blockUnBlockMerchantProcess(merchant, AdminConstantsI.UNDER_BLACKLIST_PROCESS);
+		}else if(reqType.equals("Undo")) {
+			 message = mercahntRegistration.blockUnBlockMerchantProcess(merchant, AdminConstantsI.ALREADY_MERCHANT);
+		}else if(reqType.equals("Unblock")) {
+			 message = mercahntRegistration.blockUnBlockMerchantProcess(merchant, AdminConstantsI.UNDER_CANCLE_BLACKLIST_PROCESS);
+		}else if(reqType.equals("Cancle")) {
+			 message = mercahntRegistration.blockUnBlockMerchantProcess(merchant, AdminConstantsI.BLACK_LISTED_REQUEST);
 		}
-		
-		// added by Gaurav Sriavstava
-		@RequestMapping(value = "/backAdminMerchantDetails", method = RequestMethod.POST)
-		public ModelAndView backAdminMerchantDetails(HttpServletRequest request, HttpServletResponse response) {
-			ModelAndView mav = new ModelAndView("AdminMerchantDetails");
-			return mav;
-		}
+		mav.addObject(SystemConstants.MSG_SUCCESS, message);
+		return mav;
+	}
+	
+	
 
 }

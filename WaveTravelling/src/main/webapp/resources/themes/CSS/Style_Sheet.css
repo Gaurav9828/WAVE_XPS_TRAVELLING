@@ -24,12 +24,13 @@ body{
 	margin: 0px;
 	font-family: Comic Sans MS;
 }
-errorMsg{
+errorMsg {
 	color: red;
 	fonr-size: 10px;
 }
-seccessMsg{
-	color: #00FF00;
+
+seccessMsg {
+	color: #40FF00;
 	fonr-size: 10px;
 }
 pageName{
@@ -44,7 +45,7 @@ projectName{
 	font-weight: bold;
 }
 
-.formText{
+td{
 	color: white;
 	font-size: 17px;
 	font-weight: bold;
@@ -60,4 +61,5 @@ projectName{
 	height: 25px;
 	cursor: pointer;
 	margin: 5px;
+	outline:0;
 }

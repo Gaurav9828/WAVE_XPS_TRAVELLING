@@ -12,17 +12,19 @@ import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
 import org.hibernate.cfg.Environment;
 
 import wave.spring.Constants.SystemConstants;
+import org.hibernate.Session;
 import wave.spring.model.EmailDetails;
-import wave.spring.model.Employee1MenuList;
+import wave.spring.model.MenuDetails;
 import wave.spring.model.EmployeeDetails;
 import wave.spring.model.MerchantDetails;
-import wave.spring.model.VechileAttributes;
-import wave.spring.model.VechileDetails;
+import wave.spring.model.VehicleAttributes;
+import wave.spring.model.VehicleDetails;
 
 
 public class HibernateUtils {
   private static StandardServiceRegistry registry;
   private static SessionFactory sessionFactory;
+  static Session session;
 
   public static SessionFactory getSessionFactory() {
 	  
@@ -44,9 +46,9 @@ public class HibernateUtils {
           registry = registryBuilder.build();
           
           //addition of bean classes to Hibernate for data base queries 
-          MetadataSources sources = new MetadataSources(registry).addAnnotatedClass(EmployeeDetails.class).addAnnotatedClass(Employee1MenuList.class)
-        		  .addAnnotatedClass(MerchantDetails.class).addAnnotatedClass(EmailDetails.class).addAnnotatedClass(VechileAttributes.class)
-        		  .addAnnotatedClass(VechileDetails.class);
+          MetadataSources sources = new MetadataSources(registry).addAnnotatedClass(EmployeeDetails.class).addAnnotatedClass(MenuDetails.class)
+        		  .addAnnotatedClass(MerchantDetails.class).addAnnotatedClass(EmailDetails.class).addAnnotatedClass(VehicleAttributes.class)
+        		  .addAnnotatedClass(VehicleDetails.class);
           Metadata metadata = sources.getMetadataBuilder().build();
           sessionFactory = metadata.getSessionFactoryBuilder().build();
       } catch (Exception e) {
@@ -64,4 +66,8 @@ public class HibernateUtils {
       StandardServiceRegistryBuilder.destroy(registry);
     }
   }
+
+  public static Session getSession(){
+	    return getSessionFactory().openSession();
+	  }
 }

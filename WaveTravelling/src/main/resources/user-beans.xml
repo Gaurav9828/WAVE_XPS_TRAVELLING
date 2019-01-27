@@ -12,6 +12,11 @@
     <bean id="adminDao" class="wave.spring.dao.AdminDao" />					
     <bean id="adminLoginDao" class="wave.spring.services.AdminLogin" />
     <bean id="merchantDao" class="wave.spring.dao.MerchantDao" />					
-    <bean id="merchantRegistration" class="wave.spring.services.MerchantRegistration" />
-    <bean id="systemDao" class="wave.spring.dao.SystemDao" />					
+    <bean id="merchantRegistration" class="wave.spring.services.MerchantRegistration" />					
+    <bean id="systemDao" class="wave.spring.dao.SystemDao" />
+    <bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+    	<property name="maxUploadSize" value="10000000" />
+    	<property name="maxInMemorySize" value="1048576"/>
+    </bean>
+ 					
 </beans>

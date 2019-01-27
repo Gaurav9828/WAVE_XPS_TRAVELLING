@@ -5,12 +5,10 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
-import javax.servlet.http.HttpSession;
-
 import wave.spring.Constants.AdminConstantsI;
+import wave.spring.Constants.AdminMessageConstants;
+import wave.spring.Constants.MailMessagesConstants;
 import wave.spring.Constants.SystemConstants;
-import wave.spring.dao.AdminDao;
-import wave.spring.dao.AdminDaoI;
 import wave.spring.dao.MerchantDao;
 import wave.spring.dao.MerchantDaoI;
 import wave.spring.model.EmailDetails;
@@ -44,16 +42,16 @@ public class MerchantRegistration implements MerchantRegistrationI {
 			// submit the application
 			merchantDetails.setSubmissionDate(LocalDate.now());
 			message = dao.applyForWatingMerchantship(merchantDetails);
-			if (message.equals(AdminConstantsI.REGISTRAION_REQUEST_SUCCESSFUL)) {
+			if (message.equals(AdminMessageConstants.REGISTRAION_REQUEST_SUCCESSFUL)) {
 				// mail generation
 
-				String messageToBeSent = SystemConstants.MERCHANT_REGISTRATION_APPOINTEMENT_MSG_ONE + " "
+				String messageToBeSent = MailMessagesConstants.MERCHANT_REGISTRATION_APPOINTEMENT_MSG_ONE + " "
 						+ appointmentDate1 + ", " + appointmentDate2 + " or " + appointmentDate3 + ". "
-						+ SystemConstants.MERCHANT_REGISTRATION_APPOINTEMENT_MSG_TWO;
+						+ MailMessagesConstants.MERCHANT_REGISTRATION_APPOINTEMENT_MSG_TWO;
 
-				HashMap<String, String> map = new HashMap();
+				HashMap<String, String> map = new HashMap<String, String>();
 				map.put(AdminConstantsI.TO, merchantDetails.getEmailId());
-				map.put(AdminConstantsI.SUBJECT, SystemConstants.MERCHANT_REGISTRATION_APPOINTEMENT);
+				map.put(AdminConstantsI.SUBJECT, MailMessagesConstants.MERCHANT_REGISTRATION_APPOINTEMENT);
 				map.put(AdminConstantsI.MESSAGE, messageToBeSent);
 				String msg = security.sendMail(map);
 				if (!msg.equals(SystemConstants.ACTIVE)) {
@@ -65,43 +63,28 @@ public class MerchantRegistration implements MerchantRegistrationI {
 	}
 
 	// added by Gaurav Srivastava
-	public HashMap getMerchantApplications() {
-		HashMap map = new HashMap();
-		List<MerchantDetails> applicantList = dao.getApplicantMerchantList();
+	public HashMap<String, Object> getMerchantApplications() {
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		List<MerchantDetails> applicantList = dao.getApplicantMerchantList(AdminConstantsI.ALREADY_REGISTERED);
 		if (applicantList.isEmpty()) {
-			map.put(SystemConstants.MSG, SystemConstants.FALSE);
+			map.put(SystemConstants.ERROR_MESSAGE, SystemConstants.FALSE);
 		} else {
-			map.put(SystemConstants.MSG, SystemConstants.TRUE);
+			map.put(SystemConstants.ERROR_MESSAGE, SystemConstants.TRUE);
 			map.put(SystemConstants.LIST, applicantList);
 		}
 		return map;
 	}
-	
-	
-	// added by Gaurav Srivastava
-		public HashMap getMerchants() {
-			HashMap map = new HashMap();
-			List<MerchantDetails> merchantList = dao.getAcceptedMerchantList();
-			if (merchantList.isEmpty()) {
-				map.put(SystemConstants.MSG, SystemConstants.FALSE);
-			} else {
-				map.put(SystemConstants.MSG, SystemConstants.TRUE);
-				map.put(SystemConstants.LIST, merchantList);
-			}
-			return map;
-		}
 
 	public String deleteMerchantApplication(int merchantId, String mailId) {
 		String message = "";
 		try {
 			message = dao.rejectApplication(merchantId);
 			// mail generation
-			String messageToBeSent = SystemConstants.REGISTRATION_APPLICATION_CANCELLED_MSG;
-			HashMap<String, String> map = new HashMap();
+			String messageToBeSent = MailMessagesConstants.REGISTRATION_APPLICATION_CANCELLED_MSG;
+			HashMap<String, String> map = new HashMap<String, String>();
 			map.put(AdminConstantsI.TO, mailId);
-			map.put(AdminConstantsI.SUBJECT, SystemConstants.MERCHANT_REGISTRATION_CANCELLED);
+			map.put(AdminConstantsI.SUBJECT, MailMessagesConstants.MERCHANT_REGISTRATION_CANCELLED);
 			map.put(AdminConstantsI.MESSAGE, messageToBeSent);
-			String msg = security.sendMail(map);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -112,7 +95,7 @@ public class MerchantRegistration implements MerchantRegistrationI {
 	public String createMerchant(MerchantDetails merchant, String creator) {
 		String message = "";
 		String merchantId = "";
-		HashMap<String,String> map = new HashMap();
+		HashMap<String,String> map = new HashMap<String, String>();
 		
 		try {
 			String[] str = merchant.getMobileNumber().split("");
@@ -125,23 +108,23 @@ public class MerchantRegistration implements MerchantRegistrationI {
 			employeeDetails.setAdminLevel("1");
 			employeeDetails.setEmailId(merchant.getEmailId());
 			employeeDetails.setInvalidPasswordAttempts(0);
-			employeeDetails.setLoginStatus(SystemConstants.INACTIVE);
 			employeeDetails.setMobileNumber(merchant.getMobileNumber());
-			employeeDetails.setName(merchant.getFirstName());
-			employeeDetails.setStatus(SystemConstants.ACTIVE);
+			employeeDetails.setFirstName(merchant.getFirstName());
+			employeeDetails.setLastName(merchant.getLastName());
+			employeeDetails.setStatus(AdminConstantsI.ALREADY_MERCHANT);
 			employeeDetails.setAddedByEmpId(creator);
 			message = dao.insertMerchantAdmin(employeeDetails);
 			if(message.equals(SystemConstants.INACTIVE)) {
 				message = SystemConstants.ERROR;
 			}else {
-				message = AdminConstantsI.MERCHANT_ADDED;
+				message = AdminMessageConstants.MERCHANT_ADDED;
 				merchant.setStatus(AdminConstantsI.ALREADY_MERCHANT);
+				merchant.setMarchantCode(merchantId);
 				dao.updateMerchant(merchant);
-				String messageToBeSent = SystemConstants.REGISTRATION_APPLICATION_SUCCESS_MSG+SystemConstants.MERCHANT_LOGIN_URL+
+				String messageToBeSent = MailMessagesConstants.REGISTRATION_APPLICATION_SUCCESS_MSG+MailMessagesConstants.MERCHANT_LOGIN_URL+
 						"\n"+AdminConstantsI.EMP_ID+":"+merchantId+"\n"+AdminConstantsI.PASSWORD+":"+map.get(SystemConstants.CAPTCHA);
-				HashMap mailMap = new HashMap();
 				map.put(AdminConstantsI.TO, merchant.getEmailId());
-				map.put(AdminConstantsI.SUBJECT, SystemConstants.MERCHANT_REGISTRATION_SUCCESSFUL);
+				map.put(AdminConstantsI.SUBJECT, MailMessagesConstants.MERCHANT_REGISTRATION_SUCCESSFUL);
 				map.put(AdminConstantsI.MESSAGE, messageToBeSent);
 				String msg = security.sendMail(map);
 				if(!msg.equals(SystemConstants.ACTIVE)) {
@@ -166,22 +149,7 @@ public class MerchantRegistration implements MerchantRegistrationI {
 		return merchant;
 	}
 	
-	public String blockUnBlockMerchantProcess(MerchantDetails merchantDetails, String status) {
-		String message = "";
-		EmployeeDetails employeeDetails = new EmployeeDetails();
-		merchantDetails.setStatus(status);
-		try {
-			String merchantId = generateMerchantId(merchantDetails);
-			dao.updateMerchant(merchantDetails);
-			message = AdminConstantsI.REQUEST_ACCEPTED;
-		}catch(Exception e) {
-			message = SystemConstants.ERROR;
-			e.printStackTrace();
-		}
-		return message;
-	}
-	
-	public static String generateMerchantId(MerchantDetails merchantDetails) {
+	public String generateMerchantId(MerchantDetails merchantDetails) {
 		String merchantId = "";
 		String[] str = merchantDetails.getMobileNumber().split("");
 		String id = str[0]+str[9]+str[8]+str[7];

@@ -1,7 +1,5 @@
 package wave.spring.model;
 
-import java.time.LocalDate;
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -36,17 +34,20 @@ public class EmployeeDetails {
 	@Column(name = "ADMIN_LEVEL")
 	private String adminLevel;
 	
-	@Column(name = "NAME")
-	private String name;
+	@Column(name = "FIRST_NAME")
+	private String firstName;
 	
-	@Column(name = "LOGIN_STATUS")
-	private String loginStatus;
+	@Column(name = "LAST_NAME")
+	private String lastName;
 
 	@Column(name = "EMAIL_ID")
 	private String emailId;
 	
 	@Column(name = "LAST_LOGIN")
 	private String lastLogin;
+	
+	@Column(name = "LAST_LOGOUT")
+	private String lastLogout;
 	
 	@Column(name = "INVALID_PASSWORD_ATTEMPTS")
 	private Integer invalidPasswordAttempts;
@@ -56,21 +57,6 @@ public class EmployeeDetails {
 	
 	public EmployeeDetails(){}
 
-	public EmployeeDetails(Integer userId, String employeeId, String mobileNumber, String status, String password,String memorableWord,
-			String adminLevel, String name, String loginStatus, String emailId, String lastLogin,Integer invalidPasswordAttempts, String addedByEmpId) {
-		this.userId = userId;
-		this.employeeId = employeeId;
-		this.mobileNumber = mobileNumber;
-		this.status = status;
-		this.password = password;
-		this.memorableWord = memorableWord;
-		this.adminLevel = adminLevel;
-		this.name = name;
-		this.loginStatus = loginStatus;
-		this.emailId = emailId;
-		this.lastLogin = lastLogin;
-		this.invalidPasswordAttempts = invalidPasswordAttempts;
-	}
 
 	public Integer getUserId() {
 		return userId;
@@ -128,22 +114,6 @@ public class EmployeeDetails {
 		this.adminLevel = adminLevel;
 	}
 
-	public String getName() {
-		return name;
-	}
-
-	public void setName(String name) {
-		this.name = name;
-	}
-
-	public String getLoginStatus() {
-		return loginStatus;
-	}
-
-	public void setLoginStatus(String loginStatus) {
-		this.loginStatus = loginStatus;
-	}
-
 	public String getEmailId() {
 		return emailId;
 	}
@@ -163,6 +133,35 @@ public class EmployeeDetails {
 	public String getLastLogin() {
 		return lastLogin;
 	}
+
+	public String getLastLogout() {
+		return lastLogout;
+	}
+
+	public String getFirstName() {
+		return firstName;
+	}
+
+
+	public void setFirstName(String firstName) {
+		this.firstName = firstName;
+	}
+
+
+	public String getLastName() {
+		return lastName;
+	}
+
+
+	public void setLastName(String lastName) {
+		this.lastName = lastName;
+	}
+
+
+	public void setLastLogout(String lastLogout) {
+		this.lastLogout = lastLogout;
+	}
+
 
 	public void setLastLogin(String lastLogin) {
 		this.lastLogin = lastLogin;

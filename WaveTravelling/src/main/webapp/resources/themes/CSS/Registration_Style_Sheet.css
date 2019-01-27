@@ -21,6 +21,14 @@ body {
 	height: 400px;
 }
 
+.addVehicleTable {
+	border-radius: 25px;
+	background-color: rgba(1, 1, 1, 0.7);
+	padding: 25px;
+	width: 35%;
+	height: 250px;
+}
+
 input, select {
 	border-redius: 25px;
 	height: 25px;
@@ -72,8 +80,8 @@ pageName {
 }
 
 projectName {
-	color: black;
-	font-size: 80px;
+	color: #bd0000;
+	font-size: 100px;
 	font-weight: bold;
 }
 
@@ -83,7 +91,11 @@ projectName {
 	font-size: 17px;
 	width: 205px;
 }
-
+td{
+	color: white;
+	font-size: 17px;
+	font-weight: bold;
+}
 .formText {
 	color: white;
 	font-size: 17px;

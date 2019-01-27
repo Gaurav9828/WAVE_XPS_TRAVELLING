@@ -1,11 +1,7 @@
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <%@taglib uri="http://www.springframework.org/tags" prefix="spring"%>
-<%@ taglib uri = "http://java.sun.com/jsp/jstl/core" prefix = "c" %>
 <%@page import="wave.spring.Constants.SystemConstants"%>
 <%@page import="wave.spring.Constants.AdminConstantsI"%>
-<%@page import="wave.spring.security.SecurityI"%>
-<%@page import="wave.spring.security.Security"%>
-<%@page import="java.util.HashMap" %>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
@@ -15,8 +11,7 @@
 <title>
 	<%out.print(SystemConstants.PROJECT_NAME);%>
 </title>
-<link rel="icon" type="image/jpg"
-	href="${pageContext.request.contextPath}/resources/Images/Wave_Icon.png">
+<link rel="icon" type="image/jpg" href="${pageContext.request.contextPath}/resources/Images/Wave_Icon.png">
 <link rel="stylesheet" type="text/css"
 	href="${pageContext.request.contextPath}/resources/themes/CSS/Style_Sheet.css">
 <script type="text/javascript" src="${pageContext.request.contextPath}/resources/themes/javaScript/loginFormValidation.js"></script>
@@ -26,7 +21,6 @@
 		<img alt="project_name" style = "width:300px; height:170px;" src="${pageContext.request.contextPath}/resources/Images/Wave_Page_Img.png"><br>
 		<projectName><%out.print(SystemConstants.PROJECT_NAME_ONE+"\n"+SystemConstants.PROJECT_NAME_TWO); %></projectName><br>
 	</div>
-	
 	<div align = "center">
 		<script>
 	function loadPage() {

@@ -9,7 +9,7 @@ import javax.persistence.UniqueConstraint;
 
 @Entity(name = "WAVE_XPS_ADMIN_MENU")
 @Table(name = "WAVE_XPS_ADMIN_MENU", uniqueConstraints = { @UniqueConstraint(columnNames = { "MENU_ID" }) })
-public class Employee1MenuList {
+public class MenuDetails {
 	@Id
 	@GeneratedValue
 	@Column(name = "MENU_ID")

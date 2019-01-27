@@ -7,7 +7,9 @@ public interface AdminConstantsI {
 			ADMIN_LOGIN = "Admin Login",
 			LOGIN = "Login",
 			SUBMIT = "Submit",
+			COFIRM = "Confirm",
 			RESET = "Reset",
+			BACK = "Back",
 			APPLY = "Apply",
 			CURRENT_PASSWORD = "Current Password",
 			NEW_PASSWORD = "New Password",
@@ -17,18 +19,11 @@ public interface AdminConstantsI {
 			MEMORABLE_WORD = "Memorable Word",
 			CONFIRM_MEMORABLE_WORD = "Confirm Memorable Word",
 			
-			//messages
-			INVALID_USER = "Either wrong employee id or password ..",
-			INVALID_USERID_OR_SECRET_WORD = "Either wrong employee id or memorable word ..",
-			LAST_LOGIN_ATTMEPT = "One more invalid attempt will block your account ..",
-			ACCOUNT_BLOCKED = "Your account has been temporarily blocked due to invalid password attempts ..",
-			USER_BLACK_LISTED = "Your account has been black-listed due to some policies ..",
-			ALREADY_LOGGED_IN = "You are already logged in ..",
 			
 			//session variables
 			EMPLOYEE_DETAILS = "employeeDetails",
 			EMPLOYEE_MENU_LIST = "employeeMenuList",
-			EMPLOYEE_MENU_DOMAIN_LIST = "menuDomainList",
+			EMPLOYEE_MENU_DOMAIN_LIST = "employeeMenuDomainList",
 			
 			//admin registration request form
 				//personal details
@@ -42,28 +37,21 @@ public interface AdminConstantsI {
 			EMAIL_ID = "Email Id",
 			MAIL_SENT = "S",
 			MAIL_WAITING = "W",
-			MAIL_SENDING_NETWORK_ERROR = "There is network error while sending mail.\nPlease try again later.",
+			ACTION = "Action",
 			CHOOSE_IDENTITY = "Choose Identity Type",
 			ID_NUMBER = "Identity Secquence",
 			ADHAR_ID = "Adhar",
 			PAN_ID = "Pan",
 			PASSPORT_ID = "Passport",
 			LAND_MARK = "Land Mark",
+			NAME = "Name",
 			
 			//merchant registration request
 			ALREADY_REGISTERED = "AR",
-		    ALREADY_REGISTERED_MSG = "You have already applied for the merchant registration ..",
 		    ALREADY_MERCHANT = "AM",
-		    ALREADY_MERCHANT_MSG = "You are already a merchant of Wave Xps Travelling",
 		    BLACK_LISTED_REQUEST = "BL",
 		    UNDER_BLACKLIST_PROCESS = "UBL",
 		    UNDER_CANCLE_BLACKLIST_PROCESS = "UCBL",
-		    BLACK_LISTED_REQUEST_MSG = "Sorry ! You are black listed for registration request due to some company policies ..",
-		    REGISTRAION_REQUEST_SUCCESSFUL = "Your registration request has been accepted. We have sent you a email for further informations ..",
-		    SOME_THING_WRONG_REGISTRATION = "Sorry ! Registration failed due to some error. Please try after some time ..",
-		    ERROR_MAIL_SENDING = "Error occured during mail sending. We will send your mail sooner.\n",
-		    REJECTION_SUCCESSFUL = "Merchant application successfully rejected",
-		    MERCHANT_ADDED = "Merchant added successfully.",    
 		    
 		    //merchant block-unblock
 		    REQUEST_ACCEPTED = "Request accepted",
@@ -75,6 +63,28 @@ public interface AdminConstantsI {
 			FROM = "from",
 			MESSAGE = "msg",
 			SENT = "Sent",
-			FAILED = "Failed";
+			FAILED = "Failed",
+			
+			//Merchant add vehicle attributes
+			WAITING_LIST = "WL",
+			ALREADY_ADDED = "AA",
+			REJECTED = "RJ",
+			BLOCKED = "BL",
+			
+			//Admin Creation
+			NORMAL_ADMIN = "Normal Admin",
+			SUPER_ADMIN = "Super Admin",
+			ADMIN_LEVEL = "Admin Level",
+			STATUS = "Status",
+			ÇONFIRM = "Confirm",
+			MERCHANT = "Merchant",
+			ADMIN = "Admin",
+			VISIBLE = "Visible",
+			HIDE = "Hide",
+			
+			DEVELOPER_SIGN = "Developed By Gaurav Srivastava \n gauravsri9828@gmail.com"
+			
+			
+			;
 		int MAX_INVALID_PASSWORD_ATTEMPTS = 4;
 }

@@ -46,13 +46,16 @@ public class MerchantDetails {
 	private String emailId;
 	
 	@Column(name = "STATUS")
-	private String status = "";
+	private String status;
 	
 	@Column(name = "SUBMISSION_DATE")
 	private LocalDate submissionDate;
 	
 	@Column(name = "APPOINTEMENT_DATE")
-	private String appointementDates = "";
+	private String appointementDates;
+	
+	@Column(name = "MARCHANT_CODE")
+	private String marchantCode;
 
 	public Integer getMarchantId() {
 		return marchantId;
@@ -157,5 +160,14 @@ public class MerchantDetails {
 	public void setAppointementDates(String appointementDates) {
 		this.appointementDates = appointementDates;
 	}
+
+	public String getMarchantCode() {
+		return marchantCode;
+	}
+
+	public void setMarchantCode(String marchantCode) {
+		this.marchantCode = marchantCode;
+	}
+	
 	
 }

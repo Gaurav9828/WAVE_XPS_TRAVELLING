@@ -1,6 +1,5 @@
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <%@taglib uri="http://www.springframework.org/tags" prefix="spring"%>
-<%@ taglib uri = "http://java.sun.com/jsp/jstl/core" prefix = "c" %>
 <%@page import="wave.spring.Constants.SystemConstants"%>
 <%@page import="wave.spring.Constants.AdminConstantsI"%>
 <%@page import="wave.spring.security.SecurityI"%>
@@ -15,19 +14,19 @@
 <title>
 	<%out.print(SystemConstants.PROJECT_NAME);%>
 </title>
-<link rel="icon" type="image/jpg"
-	href="${pageContext.request.contextPath}/resources/Images/Wave_Icon.png">
+<link rel="icon" type="image/jpg" href="${pageContext.request.contextPath}/resources/Images/Wave_Icon.png">
 <link rel="stylesheet" type="text/css"
 	href="${pageContext.request.contextPath}/resources/themes/CSS/Style_Sheet.css">
 <script type="text/javascript" src="${pageContext.request.contextPath}/resources/themes/javaScript/loginFormValidation.js"></script>
 </head>
-
-<SCRIPT type="text/javascript">
+<script type="text/javascript">
     window.history.forward();
-    function noBack() { window.history.forward(); }
-</SCRIPT>
+    function noBack() { 
+    	window.history.forward(); }
+</script>
 <body>
-	<%SecurityI security = new Security();
+	<%
+	SecurityI security = new Security();
 	  HashMap<String,String> map = new HashMap();
 	  map = security.generateCaptcha();%>
 	<div align = "right">
@@ -47,7 +46,7 @@
         document.body.appendChild(div);
 	}
 	</script>
-		<form:form id="loginForm" modelAttribute="AdminLogin" action="loginProcess" method="post" onsubmit="return validateAdminLoginForm()">
+		<form:form id="loginForm" modelAttribute="AdminLogin" action="WAVE" method="post" onsubmit="return validateAdminLoginForm()">
 			<table class = "adminLoginTable">
 				<tr>
 					<th colspan="2" align = "left"><errorMsg><span id="errorMsg"></span>
@@ -67,15 +66,15 @@
 					</td>
 				</tr>
 				<tr>
-					<td class = "formText"><spring:bind path="authValue1"><%out.print(AdminConstantsI.EMP_ID);%></spring:bind></td>
+					<td><spring:bind path="authValue1"><%out.print(AdminConstantsI.EMP_ID);%></spring:bind></td>
 					<td><form:input path="authValue1" type="text"/></td>
 				</tr>
 				<tr>
-					<td class = "formText"><spring:bind path="authValue2"><%out.print(AdminConstantsI.PASSWORD);%></spring:bind></td>
+					<td><spring:bind path="authValue2"><%out.print(AdminConstantsI.PASSWORD);%></spring:bind></td>
 					<td><form:input path="authValue2" type="password"/></td>
 				</tr>
 				<tr>
-					<td class = "formText"><input type = "submit" value = "<%out.print(map.get(SystemConstants.CAPTCHA));%>" class = "captcha" disabled>
+					<td><input type = "submit" value = "<%out.print(map.get(SystemConstants.CAPTCHA));%>" class = "captcha" disabled>
 					</td>
 					<td><input name="captcha" type="text" autocomplete="off"/></td>
 					<td><input type="hidden" value = "<%out.print(map.get(SystemConstants.CAPTCHA));%>" name = "keyCaptcha"/>

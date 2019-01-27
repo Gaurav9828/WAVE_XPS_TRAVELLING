@@ -20,6 +20,7 @@ button {
 	height: 60px;
 	cursor: pointer;
 	margin: 5px;
+	outline:0;
 }
 
 .theam{
@@ -41,9 +42,9 @@ button {
 	<table align="right">
 		<tr>
 			<td><a href="${pageContext.request.contextPath}/AdminLogin"><button name = "Login">Login</button></a>
-			&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
+			&nbsp&nbsp
 			</td>
-			<td><a href=""><button name = "Web">Web</button></a>
+			<td><a href="${pageContext.request.contextPath}/Registration"><button name = "Registration">Sign In</button></a>
 			&nbsp&nbsp
 			</td>
 		</tr>

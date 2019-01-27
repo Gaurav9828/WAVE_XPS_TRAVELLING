@@ -1,6 +1,5 @@
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <%@taglib uri="http://www.springframework.org/tags" prefix="spring"%>
-<%@ taglib uri = "http://java.sun.com/jsp/jstl/core" prefix = "c" %>
 <%@page import="wave.spring.Constants.SystemConstants"%>
 <%@page import="wave.spring.Constants.AdminConstantsI"%>
 <%@page import="wave.spring.security.SecurityI"%>
@@ -25,16 +24,15 @@
 	<%SecurityI security = new Security();
 	  HashMap<String,String> map = new HashMap();
 	  map = security.generateCaptcha();%>
-	<div align = "right">
-		<img alt="project_name" style = "width:250px; height:130px;" src="${pageContext.request.contextPath}/resources/Images/Wave_Page_Img.png"><br>
+	<div align = center>
 		<projectName><%out.print(SystemConstants.PROJECT_NAME_ONE+"\n"+SystemConstants.PROJECT_NAME_TWO); %></projectName><br>
 	</div>
 	<div align = "center">
-		<form:form id="merchantRegistrationForm" modelAttribute="MerchantRegistration" action="merchantRegistrationProcess" 
+		<form:form id="merchantRegistrationForm" modelAttribute="MerchantRegistration" action="RegistrationConfirmation" 
 		method="POST" onsubmit="return validateMerchantRegistrationForm()" >
 			<table class = "adminLoginTable">
 				<tr>
-					<th colspan="4" style="color:white;">Register here to be a part of Wave Xps Travelling and engage your vechile with us.</th>
+					<th colspan="4" style="color:white;">Register here to be a part of Wave Xps Travelling and engage your vehicle with us.</th>
 				</tr>
 				<tr>
 					<th colspan="4" align = "left"><errorMsg><span id="errorMsg"></span>
@@ -50,30 +48,30 @@
 					<td></td>
 					<td></td>
 					<td align = "right">
-						<a href="${pageContext.request.contextPath}/AdminLogin">
+						<a href="${pageContext.request.contextPath}/">
 						<img alt="project_name" style = "width:40px; height:40px;" 
 						src="${pageContext.request.contextPath}/resources/Images/back_icon.png"></a>
 					</td>
 					
 				</tr>
 				<tr>
-					<td class = "formText"><spring:bind path="firstName"><%out.print(AdminConstantsI.FIRST_NAME);%></spring:bind></td>
+					<td><spring:bind path="firstName"><%out.print(AdminConstantsI.FIRST_NAME);%></spring:bind></td>
 					<td><form:input path="firstName" type="text"/></td>
-					<td class = "formText"><spring:bind path="lastName"><%out.print(AdminConstantsI.LAST_NAME);%></spring:bind></td>
+					<td><spring:bind path="lastName"><%out.print(AdminConstantsI.LAST_NAME);%></spring:bind></td>
 					<td><form:input path="lastName" type="text"/></td>
 				</tr>
 				<tr>
-					<td class = "formText"><spring:bind path="mobileNumber"><%out.print(AdminConstantsI.MOBILE_NUMBER);%></spring:bind></td>
+					<td><spring:bind path="mobileNumber"><%out.print(AdminConstantsI.MOBILE_NUMBER);%></spring:bind></td>
 					<td><form:input path="mobileNumber" type="text"/></td>
 				</tr>
 				<tr>
-					<td class = "formText"><spring:bind path="city"><%out.print(AdminConstantsI.CITY);%></spring:bind></td>
+					<td><spring:bind path="city"><%out.print(AdminConstantsI.CITY);%></spring:bind></td>
 					<td><form:input path="city" type="text"/></td>
-					<td class = "formText"><spring:bind path="pinCode"><%out.print(AdminConstantsI.PIN_CODE);%></spring:bind></td>
+					<td><spring:bind path="pinCode"><%out.print(AdminConstantsI.PIN_CODE);%></spring:bind></td>
 					<td><form:input path="pinCode" type="text"/></td>
 				</tr>
 				<tr>
-					<td class = "formText"><spring:bind path="identityType"><%out.print(AdminConstantsI.CHOOSE_IDENTITY);%></spring:bind></td>
+					<td><spring:bind path="identityType"><%out.print(AdminConstantsI.CHOOSE_IDENTITY);%></spring:bind></td>
 					<td><form:select path="identityType" type="text">
 							<option value="<%out.print(AdminConstantsI.ADHAR_ID);%>">
 								<%out.print(AdminConstantsI.ADHAR_ID);%>
@@ -85,17 +83,17 @@
 								<%out.print(AdminConstantsI.PASSPORT_ID);%>
 							</option>
 					</form:select></td>
-					<td class = "formText"><spring:bind path="identityNumber"><%out.print(AdminConstantsI.ID_NUMBER);%></spring:bind></td>
+					<td><spring:bind path="identityNumber"><%out.print(AdminConstantsI.ID_NUMBER);%></spring:bind></td>
 					<td><form:input path="identityNumber" type="text"/></td>
 				</tr>
 				<tr>
-					<td class = "formText"><spring:bind path="landMark"><%out.print(AdminConstantsI.LAND_MARK);%></spring:bind></td>
+					<td><spring:bind path="landMark"><%out.print(AdminConstantsI.LAND_MARK);%></spring:bind></td>
 					<td><form:input class = "textArea" path="landMark" type="text"/></td>
-					<td class = "formText"><spring:bind path="emailId"><%out.print(AdminConstantsI.EMAIL_ID);%></spring:bind></td>
+					<td><spring:bind path="emailId"><%out.print(AdminConstantsI.EMAIL_ID);%></spring:bind></td>
 					<td><form:input path="emailId" type="text"/></td>
 				</tr>
 				<tr>
-					<td class = "formText"><button class = "captcha" disabled><%out.print(map.get(SystemConstants.CAPTCHA));%></button></td>
+					<td><button class = "captcha" disabled><%out.print(map.get(SystemConstants.CAPTCHA));%></button></td>
 					<td><input name="captcha" type="text" autocomplete="off"/></td>
 					<td><input type="hidden" value = "<%out.print(map.get(SystemConstants.CAPTCHA));%>" name = "keyCaptcha"/>
 				</tr>
@@ -108,17 +106,6 @@
 			</table>
 		</form:form>
 	</div>	
-	
-	<script>
-	function loadPage() {
-	    var div = document.createElement('div');
-        var img = document.createElement('img');
-        img.src = '${pageContext.request.contextPath}/resources/Images/pageLoading.gif';
-        div.innerHTML = "<br><br><br><br><br><br><br><br><br><br><br><br><br><br>";
-        div.style.cssText = 'position: fixed; z-index: 5000; top:0%; left:0%; width: 100%; height: 100%; text-align: center; background: rgba(0,0,0,0.7);';
-        div.appendChild(img);
-        document.body.appendChild(div);
-	}
-</script>
+
 </body>
 </html>

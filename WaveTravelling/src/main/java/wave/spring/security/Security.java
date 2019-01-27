@@ -1,14 +1,19 @@
 package wave.spring.security;
 
+import java.io.IOException;
+import java.io.InputStream;
+import java.sql.Blob;
+import java.sql.SQLException;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.ArrayList;
+import java.util.Base64;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Properties;
 import java.util.Random;
-import java.util.TimeZone;
 
+import javax.mail.AuthenticationFailedException;
 import javax.mail.Message;
 import javax.mail.MessagingException;
 import javax.mail.PasswordAuthentication;
@@ -16,18 +21,23 @@ import javax.mail.Session;
 import javax.mail.Transport;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
+import javax.sql.rowset.serial.SerialBlob;
+import javax.sql.rowset.serial.SerialException;
+
+import org.apache.commons.io.output.ByteArrayOutputStream;
 
 import wave.spring.Constants.AdminConstantsI;
+import wave.spring.Constants.MailMessagesConstants;
 import wave.spring.Constants.SystemConstants;
 import wave.spring.dao.SystemDao;
 import wave.spring.dao.SystemDaoI;
 import wave.spring.model.EmailDetails;
-import wave.spring.model.VechileAttributes;
+import wave.spring.model.VehicleAttributes;
 
 public class Security implements SecurityI {
 	//added by Gaurav Srivastava
 	public HashMap<String,String> generateCaptcha(){
-		HashMap<String,String> map = new HashMap();
+		HashMap<String,String> map = new HashMap<String, String>();
 		StringBuffer sb = new StringBuffer();
 		String[] alpha = {"a","b","c","d","e","0","1","2","3","f","g","h","i","j","k","l","m","n","o","p","q","r","s","t","u","v","w","x","y","z",
 				"A","B","#","C","D","E","F","G","H","I","J","K","L","M","N","$","&","@","#","O","P","Q","R","S","T","U","V","W","X","Y","Z",
@@ -166,6 +176,8 @@ public class Security implements SecurityI {
 			transport.close();
 			MSG = SystemConstants.ACTIVE;
 			emailDetails.setEmailStatus(AdminConstantsI.MAIL_SENT);		
+		}  catch (AuthenticationFailedException authExcep) {
+			authExcep.printStackTrace();
 		} catch (MessagingException mex) {
 			mex.printStackTrace();
 			MSG = SystemConstants.INACTIVE;
@@ -173,19 +185,52 @@ public class Security implements SecurityI {
 		}
 		SystemDao systemDao = new SystemDao();
 		try {
-			systemDao.saveEmailDetails(emailDetails);
+			if(!map.get(AdminConstantsI.SUBJECT).equals(MailMessagesConstants.TEMPORARY_PASSWORD_RESET_SUBJECT) 
+					|| !emailDetails.getEmailStatus().equals(AdminConstantsI.MAIL_WAITING)) {
+				systemDao.saveEmailDetails(emailDetails);
+			}	
 		}catch(Exception e) {
 			e.printStackTrace();
 		}
 		return MSG;
 	}
 	
+	public ArrayList<VehicleAttributes> getImageBlob(ArrayList<VehicleAttributes> listOfVehicles) throws IOException {
+		for (VehicleAttributes va : listOfVehicles) {
+			Blob blob = null;
+			byte[] my_byte_array = va.getImage();
+			try {
+				blob = new SerialBlob(my_byte_array);
+				InputStream inputStream = blob.getBinaryStream();
+				ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+				byte[] buffer = new byte[4096];
+				int bytesRead = -1;
+				while ((bytesRead = inputStream.read(buffer)) != -1) {
+					outputStream.write(buffer, 0, bytesRead);
+				}
+				byte[] imageBytes = outputStream.toByteArray();
+				String base64Image = Base64.getEncoder().encodeToString(imageBytes);
+				inputStream.close();
+				outputStream.close();
+				va.setBase64Image(base64Image);
+			} catch (SerialException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+		return listOfVehicles;
+	}
+
+	
 	//added by Gaurav Srivastava
-	public List<VechileAttributes> getVechileList(){
-		List<VechileAttributes> vechiles = new ArrayList<VechileAttributes>();
+	public List<VehicleAttributes> getVehicleList(){
+		List<VehicleAttributes> vehicles = new ArrayList<VehicleAttributes>();
 		SystemDaoI systemDao = new SystemDao();
-		vechiles = systemDao.getVechileList();
-		return vechiles;
+		vehicles = systemDao.getVehicleList();
+		return vehicles;
 	}
 
 }

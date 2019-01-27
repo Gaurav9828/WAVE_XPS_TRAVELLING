@@ -1,21 +1,26 @@
 @charset "ISO-8859-1";
 
 .dropbtnLevel2 {
-	background-color: #d76b00;
+	background-color: #666666;
 	color: white;
-	padding: 10px;
+	padding: 4px;
 	width: 100%;
-	font-size: 16px;
-	border: 1;
+	font-size: 14px;
+	border-radius: 15px;
+	outline:0;
+	cursor: pointer;
 }
 
+
 .logoutButton {
-	background-color: blue;
+	background-color: #cc0000;
 	color: white;
-	padding: 10px;
-	width: 100%;
-	font-size: 16px;
-	border: 1;
+	blod:true;
+	padding: 8px;
+    width: 100%;
+	font-size: 14px;
+	border-radius: 15px;
+	outline:0;
 }
 
 /* Fixed sidenav, full height */
@@ -32,12 +37,14 @@
 
 /* Style the sidenav links and the dropdown button */
 .sidenav a, .dropdown-btn {
-	background-color: blue;
+	background-color: #cc0000;
 	color: white;
-	padding: 10px;
+	blod:true;
+	padding: 8px;
     width: 100%;
-	font-size: 16px;
-	border: 1;
+	font-size: 14px;
+	border-radius: 15px;
+	outline:0;
 }
 
 /* On mouse-over */
@@ -58,7 +65,7 @@
 
 /* Add an active class to the active dropdown button */
 .active {
-    background-color: #0000a0;
+    background-color: #4d0000;
     color: white;
 }
 

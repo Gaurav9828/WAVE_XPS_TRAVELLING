@@ -10,12 +10,9 @@ import javax.persistence.criteria.Root;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 
-import wave.spring.Constants.AdminConstantsI;
-import wave.spring.Constants.SystemConstants;
 import wave.spring.Hibernate.HibernateUtils;
 import wave.spring.model.EmailDetails;
-import wave.spring.model.MerchantDetails;
-import wave.spring.model.VechileAttributes;
+import wave.spring.model.VehicleAttributes;
 
 public class SystemDao implements SystemDaoI{
 	public void saveEmailDetails(EmailDetails emailDetails) {
@@ -41,24 +38,24 @@ public class SystemDao implements SystemDaoI{
 		return;
 	}
 	
-	public List<VechileAttributes> getVechileList(){
-		List<VechileAttributes> vechiles = new ArrayList<VechileAttributes>();
+	public List<VehicleAttributes> getVehicleList(){
+		List<VehicleAttributes> vehicles = new ArrayList<VehicleAttributes>();
 		Session session = null;
 		try {
 			session = HibernateUtils.getSessionFactory().openSession();
 			CriteriaBuilder builder = session.getCriteriaBuilder();
-			CriteriaQuery<VechileAttributes> criteriaQuery = builder.createQuery(VechileAttributes.class);
-			Root<VechileAttributes> vechileList = criteriaQuery.from(VechileAttributes.class);
-			criteriaQuery.select(vechileList);
-			criteriaQuery.orderBy(builder.asc(vechileList.get("vechileCompany")));
-			vechiles = session.createQuery(criteriaQuery).getResultList();
+			CriteriaQuery<VehicleAttributes> criteriaQuery = builder.createQuery(VehicleAttributes.class);
+			Root<VehicleAttributes> vehicleList = criteriaQuery.from(VehicleAttributes.class);
+			criteriaQuery.select(vehicleList);
+			criteriaQuery.orderBy(builder.asc(vehicleList.get("vehicleCompany")));
+			vehicles = session.createQuery(criteriaQuery).getResultList();
 			session.close();
-			if (vechiles.isEmpty()) {
-				return vechiles;
+			if (vehicles.isEmpty()) {
+				return vehicles;
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
-			return vechiles;
+			return vehicles;
 		} finally {
 			try {
 				HibernateUtils.getSessionFactory().close();
@@ -67,7 +64,7 @@ public class SystemDao implements SystemDaoI{
 			}
 			session.close();
 		}
-		return vechiles;
+		return vehicles;
 	}
 
 
